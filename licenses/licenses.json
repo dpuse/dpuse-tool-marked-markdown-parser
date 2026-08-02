@@ -1,0 +1,9 @@
+{
+    "marked@18.0.7": {
+        "licenses": "MIT",
+        "repository": "https://github.com/markedjs/marked",
+        "publisher": "Christopher Jeffrey",
+        "path": "node_modules/marked",
+        "licenseFile": "downloads/marked@18.0.7-LICENSE.txt"
+    }
+}
