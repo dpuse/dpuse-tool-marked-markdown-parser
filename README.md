@@ -79,6 +79,20 @@ The dependency tree below lists every package in this project — direct and tra
 <!-- DEPENDENCY_TREE_END -->
 
 <!-- BUNDLE_START -->
+
+The Bundle Analysis Report is generated automatically on each release using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
+
+_Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
+
+|Chunk/Module/File|Composition|
+|:------ |:-----------|
+| dist/dpuse-tool-marked-markdown-parser.es.js | 50.0 kB · brotli 11.9 kB |
+| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js | `██████████████████░░` 91.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `██░░░░░░░░░░░░░░░░░░` 8.2% |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.1% |
+
+(unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
+
 <!-- BUNDLE_END -->
 
 <!-- GOVERNANCE_START -->
