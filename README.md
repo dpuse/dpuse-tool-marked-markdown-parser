@@ -1,5 +1,7 @@
 # Data Positioning Marked Tool
 
+Consider TanStack Markdown library for replacing Marked at some future date.
+
 A library that wraps the Marked markdown parser, giving DPUse a single, cloud-managed markdown renderer shared by dpuse-app and any presenter that needs one.
 
 ## Features
@@ -64,9 +66,9 @@ _Requires [Node.js](https://nodejs.org/) 23.11 or later, [npm](https://www.npmjs
 
 License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use CC0-1.0 or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
 
-|Dependency|Version|License(s)|Document|
-|:-|:-:|:-|:-|
-|[marked](https://github.com/markedjs/marked)|18.0.7|MIT|[LICENSE](licenses/downloads/marked@18.0.7-LICENSE.txt)|
+| Dependency                                   | Version | License(s) | Document                                                |
+| :------------------------------------------- | :-----: | :--------- | :------------------------------------------------------ |
+| [marked](https://github.com/markedjs/marked) | 18.0.7  | MIT        | [LICENSE](licenses/downloads/marked@18.0.7-LICENSE.txt) |
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -84,12 +86,12 @@ The Bundle Analysis Report is generated automatically on each release using [Son
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-|Chunk/Module/File|Composition|
-|:------ |:-----------|
-| dist/dpuse-tool-marked-markdown-parser.es.js | 50.0 kB · brotli 11.9 kB |
-| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js | `██████████████████░░` 91.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `██░░░░░░░░░░░░░░░░░░` 8.2% |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts | `░░░░░░░░░░░░░░░░░░░░` 0.1% |
+| Chunk/Module/File                                   | Composition                  |
+| :-------------------------------------------------- | :--------------------------- |
+| dist/dpuse-tool-marked-markdown-parser.es.js        | 50.0 kB · brotli 11.9 kB     |
+| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js  | `██████████████████░░` 91.7% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `██░░░░░░░░░░░░░░░░░░` 8.2%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts              | `░░░░░░░░░░░░░░░░░░░░` 0.1%  |
 
 (unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
 

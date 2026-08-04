@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-tool-marked-markdown-parser",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "private": false,
     "description": "A library that wraps the Marked markdown parser.",
     "license": "MIT",
