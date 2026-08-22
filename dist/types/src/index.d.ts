@@ -1,3 +1,3 @@
-export declare class MarkedTool {
+export declare class Tool {
     render(markdown: string): string;
 }

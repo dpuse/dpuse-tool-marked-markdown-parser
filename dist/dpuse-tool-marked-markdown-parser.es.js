@@ -1472,4 +1472,4 @@ var ze = class {
 	}
 };
 //#endregion
-export { ze as MarkedTool };
+export { ze as Tool };

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-08-20T12:13:42.358Z",
+    "generatedAt": "2026-08-22T16:04:09.555Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -21,18 +21,18 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 4174,
+      "uncompressed": 4168,
       "gzip": 0,
-      "brotli": 187,
+      "brotli": 181,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-tool-marked-markdown-parser.es.js",
       "type": "script",
-      "uncompressed": 52340,
+      "uncompressed": 52334,
       "gzip": 0,
-      "brotli": 12333
+      "brotli": 12323
     },
     {
       "kind": "filesystem",
@@ -48,7 +48,7 @@
       "format": "esm",
       "uncompressed": 48098,
       "gzip": 0,
-      "brotli": 12072,
+      "brotli": 12068,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
@@ -56,7 +56,7 @@
       "name": "src/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 135
+      "uncompressed": 129
     },
     {
       "kind": "chunk",

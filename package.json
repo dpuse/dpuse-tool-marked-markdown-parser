@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-tool-marked-markdown-parser",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "private": false,
     "description": "A library that wraps the Marked markdown parser.",
     "license": "MIT",
@@ -36,7 +36,7 @@
         "fsevents@2.3.3": true,
         "sharp@0.34.5": true,
         "unrs-resolver@1.12.2": true,
-        "workerd@1.20260815.1": true
+        "workerd@1.20260820.1": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -61,13 +61,13 @@
         "@dpuse/dpuse-development": "^0.3.706",
         "@dpuse/eslint-config-dpuse": "^1.0.116",
         "@types/node": "^26.2.0",
-        "eslint": "^10.8.1",
+        "eslint": "^10.9.0",
         "prettier": "^3.9.6",
         "sonda": "^0.14.0",
         "typescript": "^6.0.3",
         "vite": "^8.2.2",
         "vite-plugin-dts": "^5.0.3",
         "vitest": "^4.1.11",
-        "wrangler": "^4.124.0"
+        "wrangler": "^4.125.0"
     }
 }
