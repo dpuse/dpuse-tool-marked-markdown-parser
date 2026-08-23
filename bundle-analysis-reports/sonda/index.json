@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-08-22T16:14:16.002Z",
+    "generatedAt": "2026-08-23T08:35:20.722Z",
     "integration": "vite",
     "sources": false,
     "gzip": false,
@@ -21,18 +21,18 @@
       "name": "[unassigned]",
       "type": "other",
       "format": "other",
-      "uncompressed": 4168,
+      "uncompressed": 4856,
       "gzip": 0,
-      "brotli": 181,
+      "brotli": 225,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
       "kind": "asset",
       "name": "dist/dpuse-tool-marked-markdown-parser.es.js",
       "type": "script",
-      "uncompressed": 52334,
+      "uncompressed": 65987,
       "gzip": 0,
-      "brotli": 12323
+      "brotli": 16048
     },
     {
       "kind": "filesystem",
@@ -46,9 +46,26 @@
       "name": "node_modules/marked/lib/marked.esm.js",
       "type": "script",
       "format": "esm",
-      "uncompressed": 48098,
+      "uncompressed": 48136,
       "gzip": 0,
-      "brotli": 12068,
+      "brotli": 11846,
+      "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
+    },
+    {
+      "kind": "filesystem",
+      "name": "node_modules/turndown/lib/turndown.browser.es.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 25093
+    },
+    {
+      "kind": "chunk",
+      "name": "node_modules/turndown/lib/turndown.browser.es.js",
+      "type": "script",
+      "format": "esm",
+      "uncompressed": 12828,
+      "gzip": 0,
+      "brotli": 3857,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
@@ -56,16 +73,16 @@
       "name": "src/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 129
+      "uncompressed": 339
     },
     {
       "kind": "chunk",
       "name": "src/index.ts",
       "type": "script",
       "format": "esm",
-      "uncompressed": 68,
+      "uncompressed": 167,
       "gzip": 0,
-      "brotli": 73,
+      "brotli": 120,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     }
   ],
@@ -82,6 +99,12 @@
       "name": "marked",
       "paths": [
         "node_modules/marked"
+      ]
+    },
+    {
+      "name": "turndown",
+      "paths": [
+        "node_modules/turndown"
       ]
     }
   ],
