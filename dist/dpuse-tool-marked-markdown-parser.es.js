@@ -42,16 +42,18 @@ var o = ((e = "") => {
 		return !1;
 	}
 })(), s = {
-	codeRemoveIndent: /^(?: {1,4}| {0,3}\t)/gm,
+	codeRemoveIndent: /^(?: {0,3}\t| {1,4})/gm,
 	outputLinkReplace: /\\([\[\]])/g,
 	indentCodeCompensation: /^(\s+)(?:```)/,
 	beginningSpace: /^\s+/,
 	endingHash: /#$/,
 	startingSpaceChar: /^ /,
 	endingSpaceChar: / $/,
+	endingSpaceTabChar: /[ \t]$/,
 	nonSpaceChar: /[^ ]/,
 	newLineCharGlobal: /\n/g,
 	tabCharGlobal: /\t/g,
+	leadingSpaceTab: /^[ \t]+/,
 	multipleSpaceGlobal: /\s+/g,
 	blankLine: /^[ \t]*$/,
 	doubleBlankLine: /\n[ \t]*\n[ \t]*$/,
@@ -78,6 +80,7 @@ var o = ((e = "") => {
 	endAngleBracket: />$/,
 	pedanticHrefTitle: /^([^'"]*[^\s])\s+(['"])(.*)\2/,
 	unicodeAlphaNumeric: /[\p{L}\p{N}]/u,
+	numericCharacterReference: /&#(?:(\d{1,7})|[Xx]([A-Fa-f0-9]{1,6}));/g,
 	escapeTest: /[&<>"']/,
 	escapeReplace: /[&<>"']/g,
 	escapeTestNoEncode: /[<>"']|&(?!(#\d{1,7}|#[Xx][a-fA-F0-9]{1,6}|\w+);)/,
@@ -93,12 +96,12 @@ var o = ((e = "") => {
 	endingNewline: /\n$/,
 	listItemRegex: (e) => RegExp(`^( {0,3}${e})((?:[	 ][^\\n]*)?(?:\\n|$))`),
 	nextBulletRegex: i((e) => RegExp(`^ {0,${e}}(?:[*+-]|\\d{1,9}[.)])((?:[ 	][^\\n]*)?(?:\\n|$))`)),
-	hrRegex: i((e) => RegExp(`^ {0,${e}}((?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$)`)),
+	hrRegex: i((e) => RegExp(`^ {0,${e}}((?:-[ 	]*){3,}|(?:_[ 	]*){3,}|(?:\\*[ 	]*){3,})(?:\\n+|$)`)),
 	fencesBeginRegex: i((e) => RegExp(`^ {0,${e}}(?:\`\`\`|~~~)`)),
 	headingBeginRegex: i((e) => RegExp(`^ {0,${e}}#`)),
-	htmlBeginRegex: i((e) => RegExp(`^ {0,${e}}<(?:[a-z].*>|!--)`, "i")),
+	htmlBeginRegex: i((e) => RegExp(`^ {0,${e}}(?:</?(?:${_})(?: +|$|/?>)|<(?:script|pre|style|textarea|!--))`, "i")),
 	blockquoteBeginRegex: i((e) => RegExp(`^ {0,${e}}>`))
-}, c = /^(?:[ \t]*(?:\n|$))+/, l = /^((?: {4}| {0,3}\t)[^\n]+(?:\n(?:[ \t]*(?:\n|$))*)?)+/, u = /^ {0,3}(`{3,}(?=[^`\n]*(?:\n|$))|~{3,})([^\n]*)(?:\n|$)(?:|([\s\S]*?)(?:\n|$))(?: {0,3}\1[~`]* *(?=\n|$)|$)/, d = /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/, f = /^ {0,3}(#{1,6})(?=\s|$)(.*)(?:\n+|$)/, p = / {0,3}(?:[*+-]|\d{1,9}[.)])/, m = /^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |blockCode|fences|blockquote|heading|html|table))+?)\n {0,3}(=+|-+) *(?:\n+|$)/, ee = a(m).replace(/bull/g, p).replace(/blockCode/g, /(?: {4}| {0,3}\t)/).replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g, / {0,3}>/).replace(/heading/g, / {0,3}#{1,6}(?:\s|$)/).replace(/html/g, / {0,3}<[^\n>]+>\n/).replace(/\|table/g, "").getRegex(), te = a(m).replace(/bull/g, p).replace(/blockCode/g, /(?: {4}| {0,3}\t)/).replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g, / {0,3}>/).replace(/heading/g, / {0,3}#{1,6}(?:\s|$)/).replace(/html/g, / {0,3}<[^\n>]+>\n/).replace(/table/g, / {0,3}\|?(?:[:\- ]*\|)+[\:\- ]*\n/).getRegex(), h = /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table|[ \t]+\n)[^\n]+)*)/, ne = /^[^\n]+/, g = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\])+/, re = a(/^ {0,3}\[(label)\]: *(?:\n[ \t]*)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n[ \t]*)?| *\n[ \t]*)(title))? *(?:\n+|$)/).replace("label", g).replace("title", /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/).getRegex(), ie = a(/^(bull)([ \t][^\n]*?)?(?:\n|$)/).replace(/bull/g, p).getRegex(), _ = "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul", v = /<!--(?:-?>|[\s\S]*?(?:-->|$))/, ae = a("^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n*|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>[^\\n]*\\n*|$)|<![A-Z][\\s\\S]*?(?:>[^\\n]*\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>[^\\n]*\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|<(?!script|pre|style|textarea)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|</(?!script|pre|style|textarea)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$))", "i").replace("comment", v).replace("tag", _).replace("attribute", / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex(), oe = (e) => a(h).replace("hr", d).replace("heading", " {0,3}#{1,6}(?:\\s|$)").replace("|lheading", "").replace("|table", "").replace("blockquote", " {0,3}>").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)").replace("list", e).replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", _).getRegex(), se = oe(/ {0,3}(?:[*+-]|1[.)])[ \t]+[^ \t\n]/), ce = oe(/ {0,3}(?:[*+-]|\d{1,9}[.)])(?:[ \t]|\n|$)/), y = {
+}, c = /^(?:[ \t]*(?:\n|$))+/, l = /^((?: {4}| {0,3}\t)[^\n]+(?:\n(?:[ \t]*(?:\n|$))*)?)+/, u = /^ {0,3}(`{3,}(?=[^`\n]*(?:\n|$))|~{3,})([^\n]*)(?:\n|$)(?:|([\s\S]*?)(?:\n|$))(?: {0,3}\1[~`]* *(?=\n|$)|$)/, d = /^ {0,3}((?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/, f = /^ {0,3}(#{1,6})(?=\s|$)(.*)(?:\n+|$)/, p = / {0,3}(?:[*+-]|\d{1,9}[.)])/, m = /^(?!bull |blockCode|fences|blockquote|heading|html|table)((?:.|\n(?!\s*?\n|bull |fences|blockquote|heading|hr|html|table))+?)\n {0,3}(=+|-+) *(?:\n+|$)/, ee = a(m).replace(/bull/g, p).replace(/blockCode/g, /(?: {4}| {0,3}\t)/).replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g, / {0,3}>/).replace(/heading/g, / {0,3}#{1,6}(?:\s|$)/).replace(/hr/g, / {0,3}(?:(?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/).replace(/html/g, / {0,3}<[^\n>]+>\n/).replace(/\|table/g, "").getRegex(), te = a(m).replace(/bull/g, p).replace(/blockCode/g, /(?: {4}| {0,3}\t)/).replace(/fences/g, / {0,3}(?:`{3,}|~{3,})/).replace(/blockquote/g, / {0,3}>/).replace(/heading/g, / {0,3}#{1,6}(?:\s|$)/).replace(/hr/g, / {0,3}(?:(?:-[\t ]*){3,}|(?:_[ \t]*){3,}|(?:\*[ \t]*){3,})(?:\n+|$)/).replace(/html/g, / {0,3}<[^\n>]+>\n/).replace(/table/g, / {0,3}\|?(?:[:\- ]*\|)+[\:\- ]*\n/).getRegex(), h = /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html|table|[ \t]+\n)[^\n]+)*)/, ne = /^[^\n]+/, g = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\])+/, re = a(/^ {0,3}\[(label)\]: *(?:\n[ \t]*)?([^<\s][^\s]*|<.*?>)(?:(?: +(?:\n[ \t]*)?| *\n[ \t]*)(title))? *(?:\n+|$)/).replace("label", g).replace("title", /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/).getRegex(), ie = a(/^(bull)([ \t][^\n]*?)?(?:\n|$)/).replace(/bull/g, p).getRegex(), _ = "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul", v = /<!--(?:-?>|[\s\S]*?(?:-->|$))/, ae = a("^ {0,3}(?:<(script|pre|style|textarea)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n*|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?(?:\\?>[^\\n]*\\n*|$)|<![A-Z][\\s\\S]*?(?:>[^\\n]*\\n*|$)|<!\\[CDATA\\[[\\s\\S]*?(?:\\]\\]>[^\\n]*\\n*|$)|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|<(?!script|pre|style|textarea)([a-z][a-z0-9-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$)|</(?!script|pre|style|textarea)[a-z][a-z0-9-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:(?:\\n[ 	]*)+\\n|$))", "i").replace("comment", v).replace("tag", _).replace("attribute", / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex(), oe = (e) => a(h).replace("hr", d).replace("heading", " {0,3}#{1,6}(?:\\s|$)").replace("|lheading", "").replace("|table", "").replace("blockquote", " {0,3}>").replace("fences", " {0,3}(?:`{3,}(?=[^`\\n]*(?:\\n|$))|~~~)[^\\n]*(?:\\n|$)").replace("list", e).replace("html", "</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|textarea|!--)").replace("tag", _).getRegex(), se = oe(/ {0,3}(?:[*+-]|1[.)])[ \t]+[^ \t\n]/), ce = oe(/ {0,3}(?:[*+-]|\d{1,9}[.)])(?:[ \t]|\n|$)/), y = {
 	blockquote: a(/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/).replace("paragraph", ce).getRegex(),
 	code: l,
 	def: re,
@@ -125,7 +128,7 @@ var o = ((e = "") => {
 	fences: r,
 	lheading: /^(.+?)\n {0,3}(=+|-+) *(?:\n+|$)/,
 	paragraph: a(h).replace("hr", d).replace("heading", " *#{1,6} *[^\n]").replace("lheading", ee).replace("|table", "").replace("blockquote", " {0,3}>").replace("|fences", "").replace("|list", "").replace("|html", "").replace("|tag", "").getRegex()
-}, fe = /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/, pe = /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/, me = /^( {2,}|\\)\n(?!\s*$)/, he = /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/, b = /[\p{P}\p{S}]/u, x = /[\s\p{P}\p{S}]/u, S = /[^\s\p{P}\p{S}]/u, ge = a(/^((?![*_])punctSpace)/, "u").replace(/punctSpace/g, x).getRegex(), _e = /[\p{Pi}\p{Ps}"']/u, ve = /(?!~)[\p{P}\p{S}]/u, ye = /(?!~)[\s\p{P}\p{S}]/u, be = /(?:[^\s\p{P}\p{S}]|~)/u, xe = a(/link|precode-code|html/, "g").replace("link", /\[(?:[^\[\]`]|(?<a>`+)[^`]+\k<a>(?!`))*?\]\((?:\\[\s\S]|[^\\\(\)]|\((?:\\[\s\S]|[^\\\(\)])*\))*\)/).replace("precode-", o ? "(?<!`)()" : "(^^|[^`])").replace("code", /(?<b>`+)[^`]+\k<b>(?!`)/).replace("html", /<(?! )[^<>]*?>/).getRegex(), Se = /^(?:\*+(?:((?!\*)punct)|([^\s*]))?)|^_+(?:((?!_)punct)|([^\s_]))?/, Ce = a(Se, "u").replace(/punct/g, b).getRegex(), we = a(Se, "u").replace(/punct/g, ve).getRegex(), Te = a(/^(?:\*+(?:((?!\*)(?!openQuote)punct)|([^\s*]))?)|^_+(?:((?!_)(?!openQuote)punct)|([^\s_]))?/, "u").replace(/openQuote/g, _e).replace(/punct/g, b).getRegex(), Ee = "^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\\*)punct(\\*+)(?=[\\s]|$)|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)|(?!\\*)punctSpace(\\*+)(?=notPunctSpace)|[\\s](\\*+)(?!\\*)(?=punct)|(?!\\*)punct(\\*+)(?!\\*)(?=punct)|notPunctSpace(\\*+)(?=notPunctSpace)", De = a(Ee, "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Oe = a(Ee, "gu").replace(/notPunctSpace/g, be).replace(/punctSpace/g, ye).replace(/punct/g, ve).getRegex(), ke = a("^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\\*)punct(\\*+)(?=[\\s]|$)|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)|(?!\\*)[\\s](\\*+)(?=notPunctSpace)|[\\s](\\*+)(?!\\*)(?=punct)|(?!\\*)punct(\\*+)(?!\\*)(?=punct)|(?:(?!\\*)punct|notPunctSpace)(\\*+)(?!\\*)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Ae = a("^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)|[^_]+(?=[^_])|(?!_)punct(_+)(?=[\\s]|$)|notPunctSpace(_+)(?!_)(?=punctSpace|$)|(?!_)punctSpace(_+)(?=notPunctSpace)|[\\s](_+)(?!_)(?=punct)|(?!_)punct(_+)(?!_)(?=punct)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), je = a("^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)|[^_]+(?=[^_])|(?!_)punct(_+)(?=[\\s]|$)|notPunctSpace(_+)(?!_)(?=punctSpace|$)|(?!_)[\\s](_+)(?=notPunctSpace)|[\\s](_+)(?!_)(?=punct)|(?!_)punct(_+)(?!_)(?=punct)|(?:(?!_)punct|notPunctSpace)(_+)(?!_)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Me = a(/^~~?(?:((?!~)punct)|[^\s~])/, "u").replace(/punct/g, b).getRegex(), Ne = a("^[^~]+(?=[^~])|(?!~)punct(~~?)(?=[\\s]|$)|notPunctSpace(~~?)(?!~)(?=punctSpace|$)|(?!~)punctSpace(~~?)(?=notPunctSpace)|[\\s](~~?)(?!~)(?=punct)|(?!~)punct(~~?)(?!~)(?=punct)|notPunctSpace(~~?)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Pe = a(/\\(punct)/, "gu").replace(/punct/g, b).getRegex(), Fe = a(/^<(scheme:[^\s\x00-\x1f<>]*|email)>/).replace("scheme", /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/).replace("email", /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/).getRegex(), Ie = a(v).replace("(?:-->|$)", "-->").getRegex(), Le = a("^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>").replace("comment", Ie).replace("attribute", /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/).getRegex(), C = /(?:\[(?:\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/, Re = a(/^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/).replace("label", C).replace("href", /<(?:\\.|[^\n<>\\])+>|[^ \t\n\x00-\x1f]+|(?=\))/).replace("title", /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/).getRegex(), w = a(/^!?\[(label)\]\[(ref)\]/).replace("label", C).replace("ref", g).getRegex(), T = a(/^!?\[(ref)\](?:\[\])?/).replace("ref", g).getRegex(), ze = a("reflink|nolink(?!\\()", "g").replace("reflink", w).replace("nolink", T).getRegex(), E = /[hH][tT][tT][pP][sS]?|[fF][tT][pP]/, D = {
+}, fe = /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/, pe = /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/, me = /^( {2,}|\\)\n(?!\s*$)[ \t]*/, he = /^(`+|[^`])(?:(?= {2,}\n)|[\s\S]*?(?:(?=[\\<!\[`*_]|\b_|$)|[^ ](?= {2,}\n)))/, b = /[\p{P}\p{S}]/u, x = /[\s\p{P}\p{S}]/u, S = /[^\s\p{P}\p{S}]/u, ge = a(/^((?![*_])punctSpace)/, "u").replace(/punctSpace/g, x).getRegex(), _e = /[\p{Pi}\p{Ps}"']/u, ve = /(?!~)[\p{P}\p{S}]/u, ye = /(?!~)[\s\p{P}\p{S}]/u, be = /(?:[^\s\p{P}\p{S}]|~)/u, xe = a(/link|precode-code|html/, "g").replace("link", /\[(?:[^\[\]`]|(?<a>`+)[^`]+\k<a>(?!`))*?\]\((?:\\[\s\S]|[^\\\(\)]|\((?:\\[\s\S]|[^\\\(\)])*\))*\)/).replace("precode-", o ? "(?<!`)()" : "(^^|[^`])").replace("code", /(?<b>`+)[^`]+\k<b>(?!`)/).replace("html", /<(?! )[^<>]*?>/).getRegex(), Se = /^(?:\*+(?:((?!\*)punct)|([^\s*]))?)|^_+(?:((?!_)punct)|([^\s_]))?/, Ce = a(Se, "u").replace(/punct/g, b).getRegex(), we = a(Se, "u").replace(/punct/g, ve).getRegex(), Te = a(/^(?:\*+(?:((?!\*)(?!openQuote)punct)|([^\s*]))?)|^_+(?:((?!_)(?!openQuote)punct)|([^\s_]))?/, "u").replace(/openQuote/g, _e).replace(/punct/g, b).getRegex(), Ee = "^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\\*)punct(\\*+)(?=[\\s]|$)|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)|(?!\\*)punctSpace(\\*+)(?=notPunctSpace)|[\\s](\\*+)(?!\\*)(?=punct)|(?!\\*)punct(\\*+)(?!\\*)(?=punct)|notPunctSpace(\\*+)(?=notPunctSpace)", De = a(Ee, "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Oe = a(Ee, "gu").replace(/notPunctSpace/g, be).replace(/punctSpace/g, ye).replace(/punct/g, ve).getRegex(), ke = a("^[^_*]*?__[^_*]*?\\*[^_*]*?(?=__)|[^*]+(?=[^*])|(?!\\*)punct(\\*+)(?=[\\s]|$)|notPunctSpace(\\*+)(?!\\*)(?=punctSpace|$)|(?!\\*)[\\s](\\*+)(?=notPunctSpace)|[\\s](\\*+)(?!\\*)(?=punct)|(?!\\*)punct(\\*+)(?!\\*)(?=punct)|(?:(?!\\*)punct|notPunctSpace)(\\*+)(?!\\*)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Ae = a("^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)|[^_]+(?=[^_])|(?!_)punct(_+)(?=[\\s]|$)|notPunctSpace(_+)(?!_)(?=punctSpace|$)|(?!_)punctSpace(_+)(?=notPunctSpace)|[\\s](_+)(?!_)(?=punct)|(?!_)punct(_+)(?!_)(?=punct)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), je = a("^[^_*]*?\\*\\*[^_*]*?_[^_*]*?(?=\\*\\*)|[^_]+(?=[^_])|(?!_)punct(_+)(?=[\\s]|$)|notPunctSpace(_+)(?!_)(?=punctSpace|$)|(?!_)[\\s](_+)(?=notPunctSpace)|[\\s](_+)(?!_)(?=punct)|(?!_)punct(_+)(?!_)(?=punct)|(?:(?!_)punct|notPunctSpace)(_+)(?!_)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Me = a(/^~~?(?:((?!~)punct)|[^\s~])/, "u").replace(/punct/g, b).getRegex(), Ne = a("^[^~]+(?=[^~])|(?!~)punct(~~?)(?=[\\s]|$)|notPunctSpace(~~?)(?!~)(?=punctSpace|$)|(?!~)punctSpace(~~?)(?=notPunctSpace)|[\\s](~~?)(?!~)(?=punct)|(?!~)punct(~~?)(?!~)(?=punct)|notPunctSpace(~~?)(?=notPunctSpace)", "gu").replace(/notPunctSpace/g, S).replace(/punctSpace/g, x).replace(/punct/g, b).getRegex(), Pe = a(/\\(punct)/, "gu").replace(/punct/g, b).getRegex(), Fe = a(/^<(scheme:[^\s\x00-\x1f<>]*|email)>/).replace("scheme", /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/).replace("email", /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/).getRegex(), Ie = a(v).replace("(?:-->|$)", "-->").getRegex(), Le = a("^comment|^</[a-zA-Z][a-zA-Z0-9-]*\\s*>|^<[a-zA-Z][a-zA-Z0-9-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>").replace("comment", Ie).replace("attribute", /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/).getRegex(), C = /\[(?:\\[\s\S]|[^\[\]\\])*\]/, w = a(/(?:\[(?:brackets|\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\])|[^\[\]\\`])*?/).replace("brackets", C).getRegex(), Re = a(/^!?\[(label)\]\(\s*(href)(?:(?:[ \t]+(?:\n[ \t]*)?|\n[ \t]*)(title))?\s*\)/).replace("label", w).replace("href", /<(?:\\.|[^\n<>\\])+>|[^ \t\n\x00-\x1f]+|(?=\))/).replace("title", /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/).getRegex(), ze = a(/^!?\[(label)\]\[(ref)\]/).replace("label", w).replace("ref", g).getRegex(), Be = a(/^!?\[(ref)\](?:\[\])?/).replace("ref", g).getRegex(), T = /(?!\s*\])(?:\\[\s\S]|[^\[\]\\]){1,999}/, Ve = a(/(?:[^\[\]\\`]*(?:\[(?:brackets|\\[\s\S]|[^\[\]\\])*\]|\\[\s\S]|`+(?!`)[^`]*?`+(?!`)|``+(?=\]))){0,999}?[^\[\]\\`]*?/).replace("brackets", C).getRegex(), He = a("reflink|nolink(?!\\()", "g").replace("reflink", a(/^!?\[(label)\]\[(ref)\]/).replace("label", Ve).replace("ref", T).getRegex()).replace("nolink", a(/^!?\[(ref)\](?:\[\])?/).replace("ref", T).getRegex()).getRegex(), Ue = /[hH][tT][tT][pP][sS]?|[fF][tT][pP]/, We = a(/(?:mailto:email|xmpp:email(?:\/[A-Za-z0-9@.]+)?)/).replace(/email/g, /[A-Za-z0-9._+-]+@[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![\w-])/).getRegex(), E = {
 	_backpedal: r,
 	anyPunctuation: Pe,
 	autolink: Fe,
@@ -140,57 +143,63 @@ var o = ((e = "") => {
 	emStrongRDelimUnd: Ae,
 	escape: fe,
 	link: Re,
-	nolink: T,
+	nolink: Be,
 	punctuation: ge,
-	reflink: w,
-	reflinkSearch: ze,
+	reflink: ze,
+	reflinkSearch: He,
 	tag: Le,
 	text: he,
 	url: r
-}, Be = {
-	...D,
+}, Ge = {
+	...E,
 	emStrongLDelim: Te,
 	emStrongRDelimAst: ke,
 	emStrongRDelimUnd: je,
-	link: a(/^!?\[(label)\]\((.*?)\)/).replace("label", C).getRegex(),
-	reflink: a(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label", C).getRegex()
-}, O = {
-	...D,
+	link: a(/^!?\[(label)\]\((.*?)\)/).replace("label", w).getRegex(),
+	reflink: a(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label", w).getRegex()
+}, D = {
+	...E,
 	emStrongRDelimAst: Oe,
 	emStrongLDelim: we,
 	delLDelim: Me,
 	delRDelim: Ne,
-	url: a(/^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/).replace("protocol", E).replace("email", /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/).getRegex(),
+	url: a(/^emailProtocol|^((?:protocol):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/).replace("emailProtocol", We).replace("protocol", Ue).replace("email", /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![\w-])/).getRegex(),
 	_backpedal: /(?:[^?!.,:;*_'"~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_'"~)]+(?!$))+/,
 	del: /^(~~?)(?=[^\s~])((?:\\[\s\S]|[^\\])*?(?:\\[\s\S]|[^\s~\\]))\1(?=[^~]|$)/,
-	text: a(/^(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)))/).replace("protocol", E).getRegex()
-}, Ve = {
-	...O,
+	text: a(/^(?:[^a-zA-Z0-9](?=emailProtocol)|(`+|~+|[^`~])(?:(?=[`~])|(?= {2,}\n)|(?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@)|[\s\S]*?(?:(?=[\\<!\[`*~_]|\b_|protocol:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9](?=emailProtocol)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))))/).replace("protocol", Ue).replace(/emailProtocol/g, /(?:mailto|xmpp):/).getRegex()
+}, Ke = {
+	...D,
 	br: a(me).replace("{2,}", "*").getRegex(),
-	text: a(O.text).replace("\\b_", "\\b_| {2,}\\n").replace(/\{2,\}/g, "*").getRegex()
-}, k = {
+	text: a(D.text).replace("\\b_", "\\b_| {2,}\\n").replace(/\{2,\}/g, "*").getRegex()
+}, O = {
 	normal: y,
 	gfm: ue,
 	pedantic: de
-}, A = {
-	normal: D,
-	gfm: O,
-	breaks: Ve,
-	pedantic: Be
-}, He = {
+}, k = {
+	normal: E,
+	gfm: D,
+	breaks: Ke,
+	pedantic: Ge
+}, qe = {
 	"&": "&amp;",
 	"<": "&lt;",
 	">": "&gt;",
 	"\"": "&quot;",
 	"'": "&#39;"
-}, Ue = (e) => He[e];
-function j(e, t) {
+}, Je = (e) => qe[e];
+function A(e, t) {
 	if (t) {
-		if (s.escapeTest.test(e)) return e.replace(s.escapeReplace, Ue);
-	} else if (s.escapeTestNoEncode.test(e)) return e.replace(s.escapeReplaceNoEncode, Ue);
+		if (s.escapeTest.test(e)) return e.replace(s.escapeReplace, Je);
+	} else if (s.escapeTestNoEncode.test(e)) return e.replace(s.escapeReplaceNoEncode, Je);
 	return e;
 }
-function We(e) {
+function Ye(e) {
+	return e.replace(s.numericCharacterReference, (e, t, n) => {
+		let r = t === void 0 ? Number.parseInt(n, 16) : Number.parseInt(t, 10);
+		return r === 0 || r > 1114111 || r >= 55296 && r <= 57343 ? "�" : String.fromCodePoint(r);
+	});
+}
+function Xe(e) {
 	try {
 		e = encodeURI(e).replace(s.percentDecode, "%");
 	} catch {
@@ -198,7 +207,7 @@ function We(e) {
 	}
 	return e;
 }
-function Ge(e, t) {
+function Ze(e, t) {
 	let n = e.replace(s.findPipe, (e, t, n) => {
 		let r = !1, i = t;
 		for (; --i >= 0 && n[i] === "\\";) r = !r;
@@ -211,7 +220,7 @@ function Ge(e, t) {
 	for (; r < n.length; r++) n[r] = n[r].trim().replace(s.slashPipe, "|");
 	return n;
 }
-function M(e, t, n) {
+function j(e, t, n) {
 	let r = e.length;
 	if (r === 0) return "";
 	let i = 0;
@@ -223,12 +232,15 @@ function M(e, t, n) {
 	}
 	return e.slice(0, r - i);
 }
-function Ke(e) {
+function Qe(e) {
 	let t = e.split("\n"), n = t.length - 1;
 	for (; n >= 0 && s.blankLine.test(t[n]);) n--;
 	return t.length - n <= 2 ? e : t.slice(0, n + 1).join("\n");
 }
-function qe(e, t) {
+function M(e) {
+	return e.trim().toLowerCase().toUpperCase().toLowerCase();
+}
+function $e(e, t) {
 	if (e.indexOf(t[1]) === -1) return -1;
 	let n = 0;
 	for (let r = 0; r < e.length; r++) if (e[r] === "\\") r++;
@@ -236,7 +248,7 @@ function qe(e, t) {
 	else if (e[r] === t[1] && (n--, n < 0)) return r;
 	return n > 0 ? -2 : -1;
 }
-function Je(e, t = 0) {
+function et(e, t = 0) {
 	let n = t, r = "";
 	for (let t of e) if (t === "	") {
 		let e = 4 - n % 4;
@@ -244,20 +256,29 @@ function Je(e, t = 0) {
 	} else r += t, n++;
 	return r;
 }
-function Ye(e, t, n, r, i) {
-	let a = t.href, o = t.title || null, s = e[1].replace(i.other.outputLinkReplace, "$1");
+function tt(e, t, n, r, i) {
+	let a = t.href, o = t.title || null, s = e[1].replace(i.other.outputLinkReplace, "$1"), c = e[0].charAt(0) === "!";
 	r.state.inLink = !0;
-	let c = {
-		type: e[0].charAt(0) === "!" ? "image" : "link",
+	let l = r.state.linkEmitted, u = r.state.inRawBlock;
+	r.state.linkEmitted = !1;
+	let d = r.inlineTokens(s), f = r.state.linkEmitted;
+	if (r.state.linkEmitted = l, r.state.inLink = !1, !c) {
+		if (f) {
+			r.state.inRawBlock = u;
+			return;
+		}
+		r.state.linkEmitted = !0;
+	}
+	return {
+		type: c ? "image" : "link",
 		raw: n,
 		href: a,
 		title: o,
 		text: s,
-		tokens: r.inlineTokens(s)
+		tokens: d
 	};
-	return r.state.inLink = !1, c;
 }
-function Xe(e, t, n) {
+function nt(e, t, n) {
 	let r = e.match(n.other.indentCodeCompensation);
 	if (r === null) return t;
 	let i = r[1];
@@ -265,8 +286,31 @@ function Xe(e, t, n) {
 		let t = e.match(n.other.beginningSpace);
 		if (t === null) return e;
 		let [r] = t;
-		return r.length >= i.length ? e.slice(i.length) : e;
+		return e.slice(Math.min(r.length, i.length));
 	}).join("\n");
+}
+function rt(e, t, n, r) {
+	if (!t.includes("<")) return !1;
+	for (let i = 0; i < t.length; i++) {
+		if (t[i] === "\\") {
+			i++;
+			continue;
+		}
+		if (t[i] === "`") {
+			let e = r.inline.code.exec(t.slice(i));
+			if (e) {
+				i += e[0].length - 1;
+				continue;
+			}
+		}
+		if (t[i] !== "<") continue;
+		let a = e.slice(n + i), o = r.inline.tag.exec(a) || r.inline.autolink.exec(a);
+		if (o) {
+			if (o[0].length > t.length - i) return !0;
+			i += o[0].length - 1;
+		}
+	}
+	return !1;
 }
 var N = class {
 	options;
@@ -285,7 +329,7 @@ var N = class {
 	code(e) {
 		let t = this.rules.block.code.exec(e);
 		if (t) {
-			let e = this.options.pedantic ? t[0] : Ke(t[0]);
+			let e = this.options.pedantic ? t[0] : Qe(t[0]);
 			return {
 				type: "code",
 				raw: e,
@@ -297,7 +341,7 @@ var N = class {
 	fences(e) {
 		let t = this.rules.block.fences.exec(e);
 		if (t) {
-			let e = t[0], n = Xe(e, t[3] || "", this.rules);
+			let e = t[0], n = nt(e, t[3] || "", this.rules);
 			return {
 				type: "code",
 				raw: e,
@@ -311,12 +355,12 @@ var N = class {
 		if (t) {
 			let e = t[2].trim();
 			if (this.rules.other.endingHash.test(e)) {
-				let t = M(e, "#");
-				(this.options.pedantic || !t || this.rules.other.endingSpaceChar.test(t)) && (e = t.trim());
+				let t = j(e, "#");
+				(this.options.pedantic || !t || this.rules.other.endingSpaceTabChar.test(t)) && (e = t.trim());
 			}
 			return {
 				type: "heading",
-				raw: M(t[0], "\n"),
+				raw: j(t[0], "\n"),
 				depth: t[1].length,
 				text: e,
 				tokens: this.lexer.inline(e)
@@ -327,16 +371,16 @@ var N = class {
 		let t = this.rules.block.hr.exec(e);
 		if (t) return {
 			type: "hr",
-			raw: M(t[0], "\n")
+			raw: j(t[0], "\n")
 		};
 	}
 	blockquote(e) {
 		let t = this.rules.block.blockquote.exec(e);
 		if (t) {
-			let e = M(t[0], "\n").split("\n"), n = "", r = "", i = [];
+			let e = j(t[0], "\n").split("\n"), n = "", r = "", i = [];
 			for (; e.length > 0;) {
-				let t = !1, a = [], o;
-				for (o = 0; o < e.length; o++) if (this.rules.other.blockquoteStart.test(e[o])) a.push(e[o]), t = !0;
+				let t = !1, a = [], o = 0;
+				for (; o < e.length; o++) if (this.rules.other.blockquoteStart.test(e[o])) a.push(e[o]), t = !0;
 				else if (!t) a.push(e[o]);
 				else break;
 				e = e.slice(o);
@@ -350,8 +394,10 @@ ${c}` : c;
 				if (u?.type === "code") break;
 				if (u?.type === "blockquote") {
 					let t = u, a = e.join("\n"), o = t.raw + "\n" + a.replace(this.rules.other.blockquoteSetextReplace2, ""), s = this.blockquote(o);
-					i[i.length - 1] = s, n = `${n}
-${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
+					i[i.length - 1] = s;
+					let c = o.substring(s.raw.length).replace(/^\n/, ""), l = c ? c.split("\n").length : 0, d = l ? e.slice(0, -l) : e;
+					d.length > 0 && (n = `${n}
+${d.join("\n")}`), r = r.substring(0, r.length - t.text.length) + s.text;
 					break;
 				}
 				if (u?.type === "list") {
@@ -385,18 +431,18 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 				let n = !1, r = "", s = "";
 				if (!(t = a.exec(e)) || this.rules.block.hr.test(e)) break;
 				r = t[0], e = e.substring(r.length);
-				let c = Je(t[2].split("\n", 1)[0], t[1].length), l = e.split("\n", 1)[0], u = !c.trim(), d = 0;
-				if (this.options.pedantic ? (d = 2, s = c.trimStart()) : u ? d = t[1].length + 1 : (d = c.search(this.rules.other.nonSpaceChar), d = d > 4 ? 1 : d, s = c.slice(d), d += t[1].length), u && this.rules.other.blankLine.test(l) && (r += l + "\n", e = e.substring(l.length + 1), n = !0), !n) {
-					let t = this.rules.other.nextBulletRegex(d), n = this.rules.other.hrRegex(d), i = this.rules.other.fencesBeginRegex(d), a = this.rules.other.headingBeginRegex(d), o = this.rules.other.htmlBeginRegex(d), f = this.rules.other.blockquoteBeginRegex(d);
+				let c = t[2].split("\n", 1)[0], l = t[1].length, u = this.options.pedantic ? et(c, l) : c.replace(this.rules.other.leadingSpaceTab, (e) => et(e, l)), d = e.split("\n", 1)[0], f = !u.trim(), p = 0;
+				if (this.options.pedantic ? (p = 2, s = u.trimStart()) : f ? p = l + 1 : (p = u.search(this.rules.other.nonSpaceChar), p = p > 4 ? 1 : p, s = u.slice(p), p += l), f && this.rules.other.blankLine.test(d) && (r += d + "\n", e = e.substring(d.length + 1), n = !0), !n) {
+					let t = this.rules.other.nextBulletRegex(p), n = this.rules.other.hrRegex(p), i = this.rules.other.fencesBeginRegex(p), a = this.rules.other.headingBeginRegex(p), o = this.rules.other.htmlBeginRegex(p), c = this.rules.other.blockquoteBeginRegex(p);
 					for (; e;) {
-						let p = e.split("\n", 1)[0], m;
-						if (l = p, this.options.pedantic ? (l = l.replace(this.rules.other.listReplaceNesting, "  "), m = l) : m = l.replace(this.rules.other.tabCharGlobal, "    "), i.test(l) || a.test(l) || o.test(l) || f.test(l) || t.test(l) || n.test(l)) break;
-						if (m.search(this.rules.other.nonSpaceChar) >= d || !l.trim()) s += "\n" + m.slice(d);
+						let l = e.split("\n", 1)[0], m;
+						if (d = l, this.options.pedantic ? (d = d.replace(this.rules.other.listReplaceNesting, "  "), m = d) : m = d.replace(this.rules.other.leadingSpaceTab, (e) => e.replace(this.rules.other.tabCharGlobal, "    ")), i.test(d) || a.test(d) || o.test(d) || c.test(d) || t.test(d) || n.test(d)) break;
+						if (m.search(this.rules.other.nonSpaceChar) >= p || !d.trim()) s += "\n" + m.slice(p);
 						else {
-							if (u || c.replace(this.rules.other.tabCharGlobal, "    ").search(this.rules.other.nonSpaceChar) >= 4 || i.test(c) || a.test(c) || n.test(c)) break;
-							s += "\n" + l;
+							if (f || u.replace(this.rules.other.tabCharGlobal, "    ").search(this.rules.other.nonSpaceChar) >= 4 || i.test(u) || a.test(u) || n.test(u)) break;
+							s += "\n" + d;
 						}
-						u = !l.trim(), r += p + "\n", e = e.substring(p.length + 1), c = m.slice(d);
+						f = !d.trim(), r += l + "\n", e = e.substring(l.length + 1), u = m.slice(p);
 					}
 				}
 				i.loose || (o ? i.loose = !0 : this.rules.other.doubleBlankLine.test(r) && (o = !0)), i.items.push({
@@ -450,7 +496,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 	html(e) {
 		let t = this.rules.block.html.exec(e);
 		if (t) {
-			let e = Ke(t[0]);
+			let e = Qe(t[0]);
 			return {
 				type: "html",
 				block: !0,
@@ -463,11 +509,11 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 	def(e) {
 		let t = this.rules.block.def.exec(e);
 		if (t) {
-			let e = t[1].toLowerCase().replace(this.rules.other.multipleSpaceGlobal, " "), n = t[2] ? t[2].replace(this.rules.other.hrefBrackets, "$1").replace(this.rules.inline.anyPunctuation, "$1") : "", r = t[3] ? t[3].substring(1, t[3].length - 1).replace(this.rules.inline.anyPunctuation, "$1") : t[3];
+			let e = M(t[1]).replace(this.rules.other.multipleSpaceGlobal, " "), n = t[2] ? t[2].replace(this.rules.other.hrefBrackets, "$1").replace(this.rules.inline.anyPunctuation, "$1") : "", r = t[3] ? t[3].substring(1, t[3].length - 1).replace(this.rules.inline.anyPunctuation, "$1") : t[3];
 			return {
 				type: "def",
 				tag: e,
-				raw: M(t[0], "\n"),
+				raw: j(t[0], "\n"),
 				href: n,
 				title: r
 			};
@@ -476,9 +522,9 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 	table(e) {
 		let t = this.rules.block.table.exec(e);
 		if (!t || !this.rules.other.tableDelimiter.test(t[2])) return;
-		let n = Ge(t[1]), r = t[2].replace(this.rules.other.tableAlignChars, "").split("|"), i = t[3]?.trim() ? t[3].replace(this.rules.other.tableRowBlankLine, "").split("\n") : [], a = {
+		let n = Ze(t[1]), r = t[2].replace(this.rules.other.tableAlignChars, "").split("|"), i = t[3]?.trim() ? t[3].replace(this.rules.other.tableRowBlankLine, "").split("\n") : [], a = {
 			type: "table",
-			raw: M(t[0], "\n"),
+			raw: j(t[0], "\n"),
 			header: [],
 			align: [],
 			rows: []
@@ -491,7 +537,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 				header: !0,
 				align: a.align[e]
 			});
-			for (let e of i) a.rows.push(Ge(e, a.header.length).map((e, t) => ({
+			for (let e of i) a.rows.push(Ze(e, a.header.length).map((e, t) => ({
 				text: e,
 				tokens: this.lexer.inline(e),
 				header: !1,
@@ -506,7 +552,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 			let e = t[1].trim();
 			return {
 				type: "heading",
-				raw: M(t[0], "\n"),
+				raw: j(t[0], "\n"),
 				depth: t[2].charAt(0) === "=" ? 1 : 2,
 				text: e,
 				tokens: this.lexer.inline(e)
@@ -556,35 +602,39 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 	link(e) {
 		let t = this.rules.inline.link.exec(e);
 		if (t) {
-			let e = t[2].trim();
-			if (!this.options.pedantic && this.rules.other.startAngleBracket.test(e)) {
-				if (!this.rules.other.endAngleBracket.test(e)) return;
-				let t = M(e.slice(0, -1), "\\");
-				if ((e.length - t.length) % 2 == 0) return;
+			let n = t[0].charAt(0) === "!" ? 2 : 1;
+			if (!this.options.pedantic && rt(e, t[1], n, this.rules)) return;
+			let r = t[2].trim();
+			if (!this.options.pedantic && this.rules.other.startAngleBracket.test(r)) {
+				if (!this.rules.other.endAngleBracket.test(r)) return;
+				let e = j(r.slice(0, -1), "\\");
+				if ((r.length - e.length) % 2 == 0) return;
 			} else {
-				let e = qe(t[2], "()");
+				let e = $e(t[2], "()");
 				if (e === -2) return;
 				if (e > -1) {
 					let n = (t[0].indexOf("!") === 0 ? 5 : 4) + t[1].length + e;
 					t[2] = t[2].substring(0, e), t[0] = t[0].substring(0, n).trim(), t[3] = "";
 				}
 			}
-			let n = t[2], r = "";
+			let i = t[2], a = "";
 			if (this.options.pedantic) {
-				let e = this.rules.other.pedanticHrefTitle.exec(n);
-				e && (n = e[1], r = e[3]);
-			} else r = t[3] ? t[3].slice(1, -1) : "";
-			return n = n.trim(), this.rules.other.startAngleBracket.test(n) && (n = this.options.pedantic && !this.rules.other.endAngleBracket.test(e) ? n.slice(1) : n.slice(1, -1)), Ye(t, {
-				href: n && n.replace(this.rules.inline.anyPunctuation, "$1"),
-				title: r && r.replace(this.rules.inline.anyPunctuation, "$1")
+				let e = this.rules.other.pedanticHrefTitle.exec(i);
+				e && (i = e[1], a = e[3]);
+			} else a = t[3] ? t[3].slice(1, -1) : "";
+			return i = i.trim(), this.rules.other.startAngleBracket.test(i) && (i = this.options.pedantic && !this.rules.other.endAngleBracket.test(r) ? i.slice(1) : i.slice(1, -1)), tt(t, {
+				href: i && i.replace(this.rules.inline.anyPunctuation, "$1"),
+				title: a && a.replace(this.rules.inline.anyPunctuation, "$1")
 			}, t[0], this.lexer, this.rules);
 		}
 	}
 	reflink(e, t) {
 		let n;
 		if ((n = this.rules.inline.reflink.exec(e)) || (n = this.rules.inline.nolink.exec(e))) {
-			let e = t[(n[2] || n[1]).replace(this.rules.other.multipleSpaceGlobal, " ").toLowerCase()];
-			if (!e) {
+			let r = n[0].charAt(0) === "!" ? 2 : 1;
+			if (!this.options.pedantic && rt(e, n[1], r, this.rules)) return;
+			let i = t[M((n[2] || n[1]).replace(this.rules.other.multipleSpaceGlobal, " "))];
+			if (!i) {
 				let e = n[0].charAt(0);
 				return {
 					type: "text",
@@ -592,7 +642,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 					text: e
 				};
 			}
-			return Ye(n, e, n[0], this.lexer, this.rules);
+			return tt(n, i, n[0], this.lexer, this.rules);
 		}
 	}
 	emStrong(e, t, n = "") {
@@ -683,6 +733,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 				raw: t[0],
 				text: e,
 				href: n,
+				autolink: !0,
 				tokens: [{
 					type: "text",
 					raw: e,
@@ -708,6 +759,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 				raw: t[0],
 				text: e,
 				href: n,
+				autolink: !0,
 				tokens: [{
 					type: "text",
 					raw: e,
@@ -723,7 +775,7 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 			return {
 				type: "text",
 				raw: t[0],
-				text: t[0],
+				text: e ? t[0] : Ye(t[0]),
 				escaped: e
 			};
 		}
@@ -738,19 +790,20 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 		this.tokens = [], this.tokens.links = Object.create(null), this.options = e || t, this.options.tokenizer = this.options.tokenizer || new N(), this.tokenizer = this.options.tokenizer, this.tokenizer.options = this.options, this.tokenizer.lexer = this, this.inlineQueue = [], this.state = {
 			inLink: !1,
 			inRawBlock: !1,
+			linkEmitted: !1,
 			top: !0
 		};
 		let n = {
 			other: s,
-			block: k.normal,
-			inline: A.normal
+			block: O.normal,
+			inline: k.normal
 		};
-		this.options.pedantic ? (n.block = k.pedantic, n.inline = A.pedantic) : this.options.gfm && (n.block = k.gfm, n.inline = this.options.breaks ? A.breaks : A.gfm), this.tokenizer.rules = n;
+		this.options.pedantic ? (n.block = O.pedantic, n.inline = k.pedantic) : this.options.gfm && (n.block = O.gfm, n.inline = this.options.breaks ? k.breaks : k.gfm), this.tokenizer.rules = n;
 	}
 	static get rules() {
 		return {
-			block: k,
-			inline: A
+			block: O,
+			inline: k
 		};
 	}
 	static lex(t, n) {
@@ -862,12 +915,30 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 			tokens: t
 		}), t;
 	}
+	linkInText(e) {
+		if (!e.includes("[")) return !1;
+		let t = this.tokenizer.rules.inline.link;
+		for (let n of e.matchAll(this.tokenizer.rules.inline.blockSkip)) if (t.test(n[0]) && e.charAt(n.index - 1) !== "!") return !0;
+		for (let t of e.matchAll(this.tokenizer.rules.inline.reflinkSearch)) {
+			let e = t[0], n = e.lastIndexOf("[");
+			if (e.charAt(0) !== "!" && Object.hasOwn(this.tokens.links, M(e.slice(n + 1, -1))) && !(n > 1 && this.linkInText(e.slice(1, n - 1)))) return !0;
+		}
+		return !1;
+	}
 	inlineTokens(e, t = []) {
 		this.tokenizer.lexer = this;
 		let n = e;
-		if (this.tokens.links) {
-			let e = Object.keys(this.tokens.links);
-			e.length > 0 && (n = n.replace(this.tokenizer.rules.inline.reflinkSearch, (t) => e.includes(t.slice(t.lastIndexOf("[") + 1, -1)) ? "[" + "a".repeat(t.length - 2) + "]" : t));
+		if (this.tokens.links && e.includes("[")) {
+			let e = this.tokenizer.rules.inline.reflinkSearch, t = (n) => {
+				let r = n.lastIndexOf("[");
+				if (!Object.hasOwn(this.tokens.links, M(n.slice(r + 1, -1)))) return n;
+				if (r > 1 && n.charAt(0) !== "!") {
+					let i = n.slice(1, r - 1);
+					if (this.linkInText(i)) return "[" + i.replace(e, t) + "][" + "a".repeat(n.length - r - 2) + "]";
+				}
+				return "[" + "a".repeat(n.length - 2) + "]";
+			};
+			n = n.replace(e, t);
 		}
 		n = n.replace(this.tokenizer.rules.inline.anyPunctuation, (e) => "+".repeat(e.length)), n = n.replace(this.tokenizer.rules.inline.blockSkip, (e, t, n) => {
 			let r = n ? n.length : 0;
@@ -960,8 +1031,8 @@ ${a}`, r = r.substring(0, r.length - t.text.length) + s.text;
 		return "";
 	}
 	code({ text: e, lang: t, escaped: n }) {
-		let r = (t || "").match(s.notSpaceStart)?.[0], i = e.replace(s.endingNewline, "") + "\n";
-		return r ? "<pre><code class=\"language-" + j(r) + "\">" + (n ? i : j(i, !0)) + "</code></pre>\n" : "<pre><code>" + (n ? i : j(i, !0)) + "</code></pre>\n";
+		let r = (t || "").match(s.notSpaceStart)?.[0], i = e ? e.replace(s.endingNewline, "") + "\n" : "";
+		return r ? "<pre><code class=\"language-" + A(r) + "\">" + (n ? i : A(i, !0)) + "</code></pre>\n" : "<pre><code>" + (n ? i : A(i, !0)) + "</code></pre>\n";
 	}
 	blockquote({ tokens: e }) {
 		return `<blockquote>
@@ -1031,7 +1102,7 @@ ${e}</tr>
 		return `<em>${this.parser.parseInline(e)}</em>`;
 	}
 	codespan({ text: e }) {
-		return `<code>${j(e, !0)}</code>`;
+		return `<code>${A(e, !0)}</code>`;
 	}
 	br(e) {
 		return "<br>";
@@ -1039,23 +1110,23 @@ ${e}</tr>
 	del({ tokens: e }) {
 		return `<del>${this.parser.parseInline(e)}</del>`;
 	}
-	link({ href: e, title: t, tokens: n }) {
-		let r = this.parser.parseInline(n), i = We(e);
-		if (i === null) return r;
-		e = i;
-		let a = "<a href=\"" + e + "\"";
-		return t && (a += " title=\"" + j(t) + "\""), a += ">" + r + "</a>", a;
+	link({ href: e, title: t, text: n, tokens: r, autolink: i }) {
+		let a = i ? A(n, !0) : this.parser.parseInline(r), o = Xe(e);
+		if (o === null) return a;
+		e = A(o, i);
+		let s = "<a href=\"" + e + "\"";
+		return t && (s += " title=\"" + A(t) + "\""), s += ">" + a + "</a>", s;
 	}
 	image({ href: e, title: t, text: n, tokens: r }) {
 		r && (n = this.parser.parseInline(r, this.parser.textRenderer));
-		let i = We(e);
-		if (i === null) return j(n);
+		let i = Xe(e);
+		if (i === null) return A(n);
 		e = i;
-		let a = `<img src="${e}" alt="${j(n)}"`;
-		return t && (a += ` title="${j(t)}"`), a += ">", a;
+		let a = `<img src="${A(e)}" alt="${A(n)}"`;
+		return t && (a += ` title="${A(t)}"`), a += ">", a;
 	}
 	text(e) {
-		return "tokens" in e && e.tokens ? this.parser.parseInline(e.tokens) : "escaped" in e && e.escaped ? e.text : j(e.text);
+		return "tokens" in e && e.tokens ? this.parser.parseInline(e.tokens) : "escaped" in e && e.escaped ? e.text : A(e.text);
 	}
 }, I = class {
 	strong({ text: e }) {
@@ -1444,7 +1515,7 @@ ${e}</tr>
 	onError(e, t) {
 		return (n) => {
 			if (n.message += "\nPlease report this to https://github.com/markedjs/marked.", e) {
-				let e = "<p>An error occurred:</p><pre>" + j(n.message + "", !0) + "</pre>";
+				let e = "<p>An error occurred:</p><pre>" + A(n.message + "", !0) + "</pre>";
 				return t ? Promise.resolve(e) : e;
 			}
 			if (t) return Promise.reject(n);
@@ -1458,15 +1529,15 @@ function B(e, t) {
 B.options = B.setOptions = function(e) {
 	return z.setOptions(e), B.defaults = z.defaults, n(B.defaults), B;
 }, B.getDefaults = e, B.defaults = t;
-function Ze(...e) {
+function it(...e) {
 	return z.use(...e), B.defaults = z.defaults, n(B.defaults), B;
 }
-B.use = Ze, B.walkTokens = function(e, t) {
+B.use = it, B.walkTokens = function(e, t) {
 	return z.walkTokens(e, t);
 }, B.parseInline = z.parseInline, B.Parser = L, B.parser = L.parse, B.Renderer = F, B.TextRenderer = I, B.Lexer = P, B.lexer = P.lex, B.Tokenizer = N, B.Hooks = R, B.parse = B, B.options, B.setOptions, B.walkTokens, B.parseInline, L.parse, P.lex;
 //#endregion
 //#region node_modules/turndown/lib/turndown.browser.es.js
-function Qe(e) {
+function at(e) {
 	for (var t = 1; t < arguments.length; t++) {
 		var n = arguments[t];
 		for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
@@ -1476,21 +1547,21 @@ function Qe(e) {
 function V(e, t) {
 	return Array(t + 1).join(e);
 }
-function $e(e) {
+function ot(e) {
 	return e.replace(/^\n*/, "");
 }
-function et(e) {
+function st(e) {
 	for (var t = e.length; t > 0 && e[t - 1] === "\n";) t--;
 	return e.substring(0, t);
 }
-function tt(e) {
-	return et($e(e));
+function ct(e) {
+	return st(ot(e));
 }
-var nt = /* @__PURE__ */ "ADDRESS.ARTICLE.ASIDE.AUDIO.BLOCKQUOTE.BODY.CANVAS.CENTER.DD.DIR.DIV.DL.DT.FIELDSET.FIGCAPTION.FIGURE.FOOTER.FORM.FRAMESET.H1.H2.H3.H4.H5.H6.HEADER.HGROUP.HR.HTML.ISINDEX.LI.MAIN.MENU.NAV.NOFRAMES.NOSCRIPT.OL.OUTPUT.P.PRE.SECTION.TABLE.TBODY.TD.TFOOT.TH.THEAD.TR.UL".split(".");
+var lt = /* @__PURE__ */ "ADDRESS.ARTICLE.ASIDE.AUDIO.BLOCKQUOTE.BODY.CANVAS.CENTER.DD.DIR.DIV.DL.DT.FIELDSET.FIGCAPTION.FIGURE.FOOTER.FORM.FRAMESET.H1.H2.H3.H4.H5.H6.HEADER.HGROUP.HR.HTML.ISINDEX.LI.MAIN.MENU.NAV.NOFRAMES.NOSCRIPT.OL.OUTPUT.P.PRE.SECTION.TABLE.TBODY.TD.TFOOT.TH.THEAD.TR.UL".split(".");
 function H(e) {
-	return U(e, nt);
+	return U(e, lt);
 }
-var rt = [
+var ut = [
 	"AREA",
 	"BASE",
 	"BR",
@@ -1508,13 +1579,13 @@ var rt = [
 	"TRACK",
 	"WBR"
 ];
-function it(e) {
-	return U(e, rt);
+function dt(e) {
+	return U(e, ut);
 }
-function at(e) {
-	return lt(e, rt);
+function ft(e) {
+	return gt(e, ut);
 }
-var ot = [
+var pt = [
 	"A",
 	"TABLE",
 	"THEAD",
@@ -1527,21 +1598,21 @@ var ot = [
 	"AUDIO",
 	"VIDEO"
 ];
-function st(e) {
-	return U(e, ot);
+function mt(e) {
+	return U(e, pt);
 }
-function ct(e) {
-	return lt(e, ot);
+function ht(e) {
+	return gt(e, pt);
 }
 function U(e, t) {
 	return t.indexOf(e.nodeName) >= 0;
 }
-function lt(e, t) {
+function gt(e, t) {
 	return e.getElementsByTagName && t.some(function(t) {
 		return e.getElementsByTagName(t).length;
 	});
 }
-var ut = [
+var _t = [
 	[/\\/g, "\\\\"],
 	[/\*/g, "\\*"],
 	[/^-/g, "\\-"],
@@ -1556,8 +1627,8 @@ var ut = [
 	[/_/g, "\\_"],
 	[/^(\d+)\. /g, "$1\\. "]
 ];
-function dt(e) {
-	return ut.reduce(function(e, t) {
+function vt(e) {
+	return _t.reduce(function(e, t) {
 		return e.replace(t[0], t[1]);
 	}, e);
 }
@@ -1592,7 +1663,7 @@ W.paragraph = {
 }, W.blockquote = {
 	filter: "blockquote",
 	replacement: function(e) {
-		return e = tt(e).replace(/^/gm, "> "), "\n\n" + e + "\n\n";
+		return e = ct(e).replace(/^/gm, "> "), "\n\n" + e + "\n\n";
 	}
 }, W.list = {
 	filter: ["ul", "ol"],
@@ -1609,7 +1680,7 @@ W.paragraph = {
 			r = (a ? Number(a) + o : o + 1) + ".  ";
 		}
 		var s = /\n$/.test(e);
-		return e = tt(e) + (s ? "\n" : ""), e = e.replace(/\n/gm, "\n" + " ".repeat(r.length)), r + e + (t.nextSibling ? "\n" : "");
+		return e = ct(e) + (s ? "\n" : ""), e = e.replace(/\n/gm, "\n" + " ".repeat(r.length)), r + e + (t.nextSibling ? "\n" : "");
 	}
 }, W.indentedCodeBlock = {
 	filter: function(e, t) {
@@ -1690,7 +1761,7 @@ W.paragraph = {
 }, W.image = {
 	filter: "img",
 	replacement: function(e, t) {
-		var n = dt(G(t.getAttribute("alt"))), r = K(t.getAttribute("src") || ""), i = G(t.getAttribute("title")), a = i ? " \"" + q(i) + "\"" : "";
+		var n = vt(G(t.getAttribute("alt"))), r = K(t.getAttribute("src") || ""), i = G(t.getAttribute("title")), a = i ? " \"" + q(i) + "\"" : "";
 		return r ? "![" + n + "](" + r + a + ")" : "";
 	}
 };
@@ -1704,10 +1775,10 @@ function K(e) {
 function q(e) {
 	return e.replace(/"/g, "\\\"");
 }
-function ft(e) {
+function yt(e) {
 	for (var t in this.options = e, this._keep = [], this._remove = [], this.blankRule = { replacement: e.blankReplacement }, this.keepReplacement = e.keepReplacement, this.defaultRule = { replacement: e.defaultReplacement }, this.array = [], e.rules) this.array.push(e.rules[t]);
 }
-ft.prototype = {
+yt.prototype = {
 	add: function(e, t) {
 		this.array.unshift(t);
 	},
@@ -1737,10 +1808,10 @@ ft.prototype = {
 function J(e, t, n) {
 	for (var r = 0; r < e.length; r++) {
 		var i = e[r];
-		if (pt(i, t, n)) return i;
+		if (bt(i, t, n)) return i;
 	}
 }
-function pt(e, t, n) {
+function bt(e, t, n) {
 	var r = e.filter;
 	if (typeof r == "string") {
 		if (r === t.nodeName.toLowerCase()) return !0;
@@ -1750,11 +1821,11 @@ function pt(e, t, n) {
 		if (r.call(e, t, n)) return !0;
 	} else throw TypeError("`filter` needs to be a string, array, or function");
 }
-function mt(e) {
+function xt(e) {
 	var t = e.element, n = e.isBlock, r = e.isVoid, i = e.isPre || function(e) {
 		return e.nodeName === "PRE";
 	};
-	if (!(!t.firstChild || i(t))) {
+	if (t.firstChild && !i(t)) {
 		for (var a = null, o = !1, s = null, c = X(s, t, i); c !== t;) {
 			if (c.nodeType === 3 || c.nodeType === 4) {
 				var l = c.data.replace(/[ \r\n\t]+/g, " ");
@@ -1782,16 +1853,16 @@ function X(e, t, n) {
 	return e && e.parentNode === t || n(t) ? t.nextSibling || t.parentNode : t.firstChild || t.nextSibling || t.parentNode;
 }
 var Z = typeof window < "u" ? window : {};
-function ht() {
+function St() {
 	var e = Z.DOMParser, t = !1;
 	try {
 		new e().parseFromString("", "text/html") && (t = !0);
 	} catch {}
 	return t;
 }
-function gt() {
+function Ct() {
 	var e = function() {};
-	return _t() ? e.prototype.parseFromString = function(e) {
+	return wt() ? e.prototype.parseFromString = function(e) {
 		var t = new window.ActiveXObject("htmlfile");
 		return t.designMode = "on", t.open(), t.write(e), t.close(), t;
 	} : e.prototype.parseFromString = function(e) {
@@ -1799,7 +1870,7 @@ function gt() {
 		return t.open(), t.write(e), t.close(), t;
 	}, e;
 }
-function _t() {
+function wt() {
 	var e = !1;
 	try {
 		document.implementation.createHTMLDocument("").open();
@@ -1808,41 +1879,41 @@ function _t() {
 	}
 	return e;
 }
-var vt = ht() ? Z.DOMParser : gt();
-function yt(e, t) {
-	var n = typeof e == "string" ? xt().parseFromString("<x-turndown id=\"turndown-root\">" + e + "</x-turndown>", "text/html").getElementById("turndown-root") : e.cloneNode(!0);
-	return mt({
+var Tt = St() ? Z.DOMParser : Ct();
+function Et(e, t) {
+	var n = typeof e == "string" ? Ot().parseFromString("<x-turndown id=\"turndown-root\">" + e + "</x-turndown>", "text/html").getElementById("turndown-root") : e.cloneNode(!0);
+	return xt({
 		element: n,
 		isBlock: H,
-		isVoid: it,
-		isPre: t.preformattedCode ? St : null
+		isVoid: dt,
+		isPre: t.preformattedCode ? kt : null
 	}), n;
 }
-var bt;
-function xt() {
-	return bt ||= new vt(), bt;
+var Dt;
+function Ot() {
+	return Dt ||= new Tt(), Dt;
 }
-function St(e) {
+function kt(e) {
 	return e.nodeName === "PRE" || e.nodeName === "CODE";
 }
-function Ct(e, t) {
-	return e.isBlock = H(e), e.isCode = e.nodeName === "CODE" || e.parentNode.isCode, e.isBlank = wt(e), e.flankingWhitespace = Tt(e, t), e;
+function At(e, t) {
+	return e.isBlock = H(e), e.isCode = e.nodeName === "CODE" || e.parentNode.isCode, e.isBlank = jt(e), e.flankingWhitespace = Mt(e, t), e;
 }
-function wt(e) {
-	return !it(e) && !st(e) && /^\s*$/i.test(e.textContent) && !at(e) && !ct(e);
+function jt(e) {
+	return !dt(e) && !mt(e) && /^\s*$/i.test(e.textContent) && !ft(e) && !ht(e);
 }
-function Tt(e, t) {
+function Mt(e, t) {
 	if (e.isBlock || t.preformattedCode && e.isCode) return {
 		leading: "",
 		trailing: ""
 	};
-	var n = Et(e.textContent);
-	return n.leadingAscii && Dt("left", e, t) && (n.leading = n.leadingNonAscii), n.trailingAscii && Dt("right", e, t) && (n.trailing = n.trailingNonAscii), {
+	var n = Nt(e.textContent);
+	return n.leadingAscii && Pt("left", e, t) && (n.leading = n.leadingNonAscii), n.trailingAscii && Pt("right", e, t) && (n.trailing = n.trailingNonAscii), {
 		leading: n.leading,
 		trailing: n.trailing
 	};
 }
-function Et(e) {
+function Nt(e) {
 	var t = e.match(/^(([ \t\r\n]*)(\s*))(?:(?=\S)[\s\S]*\S)?((\s*?)([ \t\r\n]*))$/);
 	return {
 		leading: t[1],
@@ -1853,11 +1924,11 @@ function Et(e) {
 		trailingAscii: t[6]
 	};
 }
-function Dt(e, t, n) {
+function Pt(e, t, n) {
 	var r, i, a;
 	return e === "left" ? (r = t.previousSibling, i = / $/) : (r = t.nextSibling, i = /^ /), r && (r.nodeType === 3 ? a = i.test(r.nodeValue) : n.preformattedCode && r.nodeName === "CODE" ? a = !1 : r.nodeType === 1 && !H(r) && (a = i.test(r.textContent))), a;
 }
-var Ot = Array.prototype.reduce;
+var Ft = Array.prototype.reduce;
 function Q(e) {
 	if (!(this instanceof Q)) return new Q(e);
 	var t = {
@@ -1883,14 +1954,14 @@ function Q(e) {
 			return t.isBlock ? "\n\n" + e + "\n\n" : e;
 		}
 	};
-	this.options = Qe({}, t, e), this.rules = new ft(this.options);
+	this.options = at({}, t, e), this.rules = new yt(this.options);
 }
 Q.prototype = {
 	turndown: function(e) {
-		if (!Mt(e)) throw TypeError(e + " is not a string, or an element/document/fragment node.");
+		if (!zt(e)) throw TypeError(e + " is not a string, or an element/document/fragment node.");
 		if (e === "") return "";
-		var t = kt.call(this, new yt(e, this.options));
-		return At.call(this, t);
+		var t = It.call(this, new Et(e, this.options));
+		return Lt.call(this, t);
 	},
 	use: function(e) {
 		if (Array.isArray(e)) for (var t = 0; t < e.length; t++) this.use(e[t]);
@@ -1908,37 +1979,37 @@ Q.prototype = {
 		return this.rules.remove(e), this;
 	},
 	escape: function(e) {
-		return dt(e);
+		return vt(e);
 	}
 };
-function kt(e) {
+function It(e) {
 	var t = this;
-	return Ot.call(e.childNodes, function(e, n) {
-		n = new Ct(n, t.options);
+	return Ft.call(e.childNodes, function(e, n) {
+		n = new At(n, t.options);
 		var r = "";
-		return n.nodeType === 3 ? r = n.isCode ? n.nodeValue : t.escape(n.nodeValue) : n.nodeType === 1 && (r = jt.call(t, n)), $(e, r);
+		return n.nodeType === 3 ? r = n.isCode ? n.nodeValue : t.escape(n.nodeValue) : n.nodeType === 1 && (r = Rt.call(t, n)), $(e, r);
 	}, "");
 }
-function At(e) {
+function Lt(e) {
 	var t = this;
 	return this.rules.forEach(function(n) {
 		typeof n.append == "function" && (e = $(e, n.append(t.options)));
 	}), e.replace(/^[\t\r\n]+/, "").replace(/[\t\r\n\s]+$/, "");
 }
-function jt(e) {
-	var t = this.rules.forNode(e), n = kt.call(this, e), r = e.flankingWhitespace;
+function Rt(e) {
+	var t = this.rules.forNode(e), n = It.call(this, e), r = e.flankingWhitespace;
 	return (r.leading || r.trailing) && (n = n.trim()), r.leading + t.replacement(n, e, this.options) + r.trailing;
 }
 function $(e, t) {
-	var n = et(e), r = $e(t), i = Math.max(e.length - n.length, t.length - r.length);
+	var n = st(e), r = ot(t), i = Math.max(e.length - n.length, t.length - r.length);
 	return n + "\n\n".substring(0, i) + r;
 }
-function Mt(e) {
+function zt(e) {
 	return e != null && (typeof e == "string" || e.nodeType && (e.nodeType === 1 || e.nodeType === 9 || e.nodeType === 11));
 }
 //#endregion
 //#region src/index.ts
-var Nt = class {
+var Bt = class {
 	#e = new Q();
 	constructor() {
 		this.#e.keep(["u"]);
@@ -1951,4 +2022,4 @@ var Nt = class {
 	}
 };
 //#endregion
-export { Nt as Tool };
+export { Bt as Tool };
