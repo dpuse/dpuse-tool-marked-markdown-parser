@@ -15,14 +15,22 @@ A library that wraps the Marked markdown parser, giving DPUse a single, cloud-ma
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-tool-marked-markdown-parser?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/releases/latest)
 [![CI](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/codeql.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-tool-marked-markdown-parser&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-tool-marked-markdown-parser)
 
-[Documentation](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/issues)
+[DPUse](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/issues)
+
+A library that wraps the Marked markdown parser and the Turndown HTML-to-markdown converter.
 
 ## About DPUse
 
-DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing. **Sourcing** uses a library of [Connectors](https://www.dpuse.app) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources. **Contextualising** extracts chronological events from those [Data Views](https://www.dpuse.app) and maps them into comprehensive [Context Models](https://www.dpuse.app). This provides the DPUse Engine with the structural framework required to generate deterministic transactions, facts, or observations. **Publishing** employs a library of [Presenters](https://www.dpuse.app) to render standard [Presentations](https://www.dpuse.app) immediately using the contextualised data; additionally, [Cookbooks](https://www.dpuse.app) of [Recipes](https://www.dpuse.app) allow you to build Data Apps using your preferred tools.
+DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
+
+**Sourcing** uses a library of [Connectors](https://www.dpuse.app/connectors) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources.
+
+**Contextualising** extracts chronological events from those [Data Views](https://www.dpuse.app) and maps them into comprehensive [Context Models](https://www.dpuse.app). This gives the DPUse Engine the structural framework needed to generate deterministic transactions, facts, or observations.
+
+**Publishing** uses a library of [Presenters](https://www.dpuse.app) to render standard [Presentations](https://www.dpuse.app) immediately using the contextualised data; additionally, [Cookbooks](https://www.dpuse.app) of [Recipes](https://www.dpuse.app) let you build Data Apps using your preferred tools.
+
+In addition, DPUse provides [Tools](https://www.dpuse.app) used by the application, and you can use them to construct connectors and presenters.
 
 ## Introduction
 
@@ -48,9 +56,15 @@ npm install
 
 <!-- USAGE_START -->
 
-This connector is automatically uploaded to the DPUse Engine cloud once released and becomes instantly available to all new browser app instances, with existing instances notified of the update.
+## Usage
 
-You may view or clone this repository for your own purposes, such as building a new, similar connector, though there is currently no process to accept third-party connectors into DPUse at this stage. Cloned or forked code is unsupported and isn't guaranteed to remain compatible with the DPUse Engine as it evolves.
+This [package](https://www.npmjs.com/package/@dpuse/dpuse-tool-marked-markdown-parser) is available on [npm](https://www.npmjs.com/). Install it with:
+
+```bash
+npm install @dpuse/dpuse-tool-marked-markdown-parser
+```
+
+To work on the source instead, clone this repository.
 
 ```bash
 git clone https://github.com/dpuse/dpuse-tool-marked-markdown-parser.git
@@ -58,7 +72,9 @@ cd dpuse-tool-marked-markdown-parser
 npm install
 ```
 
-_Requires [Node.js](https://nodejs.org/) 23.11 or later, [npm](https://www.npmjs.com/) 11 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
+_Requires [Node.js](https://nodejs.org/) 24 or later, [npm](https://www.npmjs.com/) 12 or later, and [TypeScript](https://www.typescriptlang.org/) 6.0.3 or later._
+
+This repository is managed using the common set of actions provided by [@dpuse/dpuse-development](https://github.com/dpuse/dpuse-development). See the `scripts` block in [package.json](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/blob/main/package.json) for details.
 
 <!-- USAGE_END -->
 
@@ -70,15 +86,13 @@ License data is collected automatically on each release using [license-checker](
 | :------------------------------------------- | :-----: | :--------- | :------------------------------------------------------ |
 | [marked](https://github.com/markedjs/marked) | 18.0.7  | MIT        | [LICENSE](licenses/downloads/marked@18.0.7-LICENSE.txt) |
 
-<!-- DEPENDENCY_LICENSES_END -->
-
-<!-- DEPENDENCY_TREE_START -->
+### Dependency Tree
 
 The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
 
 - **[marked](https://github.com/markedjs/marked)** 18.0.7 — this month: 2026-07-21
 
-<!-- DEPENDENCY_TREE_END -->
+<!-- DEPENDENCY_LICENSES_END -->
 
 <!-- BUNDLE_START -->
 

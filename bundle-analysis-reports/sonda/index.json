@@ -1,11 +1,11 @@
 {
   "metadata": {
     "version": "0.14.0",
-    "generatedAt": "2026-09-22T10:10:26.887Z",
+    "generatedAt": "2026-09-29T14:38:37.633Z",
     "integration": "vite",
     "sources": false,
-    "gzip": false,
-    "brotli": true
+    "gzip": true,
+    "brotli": false
   },
   "resources": [
     {
@@ -22,8 +22,8 @@
       "type": "other",
       "format": "other",
       "uncompressed": 5017,
-      "gzip": 0,
-      "brotli": 229,
+      "gzip": 263,
+      "brotli": 0,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
@@ -31,8 +31,8 @@
       "name": "dist/dpuse-tool-marked-markdown-parser.es.js",
       "type": "script",
       "uncompressed": 69507,
-      "gzip": 0,
-      "brotli": 16876
+      "gzip": 18913,
+      "brotli": 0
     },
     {
       "kind": "filesystem",
@@ -47,8 +47,8 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 51498,
-      "gzip": 0,
-      "brotli": 12637,
+      "gzip": 14111,
+      "brotli": 0,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
@@ -64,8 +64,8 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 12825,
-      "gzip": 0,
-      "brotli": 3887,
+      "gzip": 4390,
+      "brotli": 0,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     },
     {
@@ -81,8 +81,8 @@
       "type": "script",
       "format": "esm",
       "uncompressed": 167,
-      "gzip": 0,
-      "brotli": 123,
+      "gzip": 149,
+      "brotli": 0,
       "parent": "dist/dpuse-tool-marked-markdown-parser.es.js"
     }
   ],

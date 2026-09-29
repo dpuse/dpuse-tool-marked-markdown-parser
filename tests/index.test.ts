@@ -1,6 +1,6 @@
 // ── External Dependencies & Registrations
-import { describe, expect, it } from 'vitest';
 import { Tool as MarkedTool } from '@/index';
+import { describe, expect, it } from 'vitest';
 
 // ── Tests ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
