@@ -14,6 +14,7 @@ A library that wraps the Marked markdown parser, giving DPUse a single, cloud-ma
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-tool-marked-markdown-parser?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/releases/latest)
+[![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-tool-marked-markdown-parser?color=cb3837&label=npm)](https://www.npmjs.com/package/@dpuse/dpuse-tool-marked-markdown-parser)
 [![CI](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml)
 
 [DPUse](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/issues)
@@ -80,69 +81,97 @@ This repository is managed using the common set of actions provided by [@dpuse/d
 
 <!-- DEPENDENCY_LICENSES_START -->
 
-License data is collected automatically on each release using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use CC0-1.0 or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
+## Dependency Licenses
 
-| Dependency                                   | Version | License(s) | Document                                                |
-| :------------------------------------------- | :-----: | :--------- | :------------------------------------------------------ |
-| [marked](https://github.com/markedjs/marked) | 18.0.7  | MIT        | [LICENSE](licenses/downloads/marked@18.0.7-LICENSE.txt) |
+License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use CC0-1.0, BSD-2-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
+
+| Dependency                                                 | Version | License(s)   | Document                                                           |
+| :--------------------------------------------------------- | :-----: | :----------- | :----------------------------------------------------------------- |
+| [@mixmark-io/domino](https://github.com/mixmark-io/domino) |  2.2.0  | BSD-2-Clause | [LICENSE](licenses/downloads/@mixmark-io/domino@2.2.0-LICENSE.txt) |
+| [marked](https://github.com/markedjs/marked)               | 18.0.14 | MIT          | [LICENSE](licenses/downloads/marked@18.0.14-LICENSE.txt)           |
+| [turndown](https://github.com/mixmark-io/turndown)         |  7.2.4  | MIT          | [LICENSE](licenses/downloads/turndown@7.2.4-LICENSE.txt)           |
 
 ### Dependency Tree
 
-The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are simply mature and stable, requiring no active development.
+The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
-- **[marked](https://github.com/markedjs/marked)** 18.0.7 — this month: 2026-07-21
+- **[marked](https://github.com/markedjs/marked)** 18.0.14 — this month: 2026-09-22
+- **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — **5 months** ago: 2026-04-03
+    - **[@mixmark-io/domino](https://github.com/mixmark-io/domino)** 2.2.0 — **29 months** ago: 2024-04-06 ⚠️
 
 <!-- DEPENDENCY_LICENSES_END -->
 
 <!-- BUNDLE_START -->
 
-The Bundle Analysis Report is generated automatically on each release using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
+## Bundle Analysis
+
+This report is updated with each release, from the bundle the release builds, using [Sonda](https://sonda.dev/), which analyses final source maps to reveal the actual effects of tree-shaking and minification rather than relying on pre-build estimates.
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                   | Composition                  |
-| :-------------------------------------------------- | :--------------------------- |
-| dist/dpuse-tool-marked-markdown-parser.es.js        | 50.0 kB · brotli 11.9 kB     |
-| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js  | `██████████████████░░` 91.7% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(unassigned) → [unassigned] | `██░░░░░░░░░░░░░░░░░░` 8.2%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts              | `░░░░░░░░░░░░░░░░░░░░` 0.1%  |
+| Chunk/Module/File                                             | Composition                  |
+| :------------------------------------------------------------ | :--------------------------- |
+| dist/dpuse-tool-marked-markdown-parser.es.js                  | 67.9 kB · gzip 18.5 kB       |
+| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js            | `███████████████░░░░░` 74.1% |
+| &nbsp;&nbsp;&nbsp;&nbsp;turndown → lib/turndown.browser.es.js | `████░░░░░░░░░░░░░░░░` 18.5% |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)   | `█░░░░░░░░░░░░░░░░░░░` 7.2%  |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                        | `░░░░░░░░░░░░░░░░░░░░` 0.2%  |
 
-(unassigned) = bytes Sonda can't trace to a specific source line (whitespace, stray keywords, bundler-injected region markers) — not actual missing/unknown code.
+(bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.
 
 <!-- BUNDLE_END -->
 
-<!-- GOVERNANCE_START -->
+<!-- QUALITY_SECURITY_START -->
 
-## Security & Quality
+## Quality & Security
 
-### CodeQL
+This section is updated each time `npm run document` is run. Settings come from the repository's workflow files and GitHub. Test coverage and the Fallow score are measured at the same time.
 
-[CodeQL](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/code-scanning) static analysis runs on every push to `main` and on a weekly schedule, scanning TypeScript, JavaScript, Rust, and GitHub Actions workflow files for security vulnerabilities and coding errors.
+### Testing
 
-### SonarCloud
+| Check                | Status | What it does                                                                                                                                                                                               |
+| :------------------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit tests           | ✅ On  | [Vitest](https://vitest.dev) runs the unit tests. Part of the [CI workflow](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml) on every push and pull request to `main`. |
+| Property-based tests | ❌ Off | [fast-check](https://fast-check.dev) runs many random inputs per test to find edge cases, alongside the unit tests.                                                                                        |
 
-[SonarCloud](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-tool-marked-markdown-parser) performs continuous code quality and security analysis on every push, detecting bugs, code smells, and security vulnerabilities in the TypeScript source.
+### Code Quality
 
-### Vulnerability Scanning
+| Check         | Status | What it does                                                                                                                                                                                                                                                                                                                       |
+| :------------ | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Code analysis | ✅ On  | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dpuse_dpuse-tool-marked-markdown-parser&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=dpuse_dpuse-tool-marked-markdown-parser) [SonarCloud](https://sonarcloud.io) checks every push for bugs, code smells and vulnerabilities. |
+| Linting       | ✅ On  | [ESLint](https://eslint.org) checks the code for errors and style problems. Part of the [CI workflow](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml) on every push and pull request to `main`.                                                                                               |
 
-Two complementary tools continuously monitor dependencies for known vulnerabilities:
+### Security Analysis
 
-- [npm audit](https://docs.npmjs.com/cli/v8/commands/npm-audit) runs on every push to `main` via the CI workflow, failing the build if any high or critical severity vulnerabilities are detected.
-- [GitHub Dependabot](https://docs.github.com/en/code-security/dependabot) automatically raises pull requests to update vulnerable dependencies, drawing on the GitHub Advisory Database which combines NVD and npm-specific advisories.
+| Check           | Status | What it does                                                                                                                                                                                                                                                                                                                                                                                                 |
+| :-------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Push protection | ✅ On  | [GitHub push protection](https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories-and-organizations) blocks pushes that contain credentials.                                                                                                                                                                                                                                |
+| Static analysis | ✅ On  | [![CodeQL](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/code-scanning) [CodeQL](https://codeql.github.com) scans GitHub Actions and JavaScript/TypeScript for security vulnerabilities, using the extended security queries, on every push and pull request to `main` and weekly. |
+| Secret scanning | ✅ On  | [GitHub secret scanning](https://docs.github.com/en/code-security/secret-scanning) detects credentials, such as API keys and tokens, committed to the repository.                                                                                                                                                                                                                                            |
 
-### Supply Chain Security
+### Dependencies
 
-[Socket.dev](https://socket.dev) monitors all dependencies for supply chain risk — detecting malicious packages, dependency confusion, typosquatting, and suspicious behaviour that may not yet have a CVE.
-
-### Reporting Vulnerabilities
-
-Please do not open public GitHub issues for security vulnerabilities. Use [GitHub private vulnerability reporting](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) instead. See [SECURITY.md](./SECURITY.md) for the full disclosure policy, contact details, and expected response times.
+| Check               | Status | What it does                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vulnerability audit | ✅ On  | [npm audit](https://docs.npmjs.com/cli/commands/npm-audit) fails when a shipped dependency has any known vulnerability, or a development dependency has a high or critical one. Part of the [CI workflow](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml) on every push and pull request to `main`. |
+| Supply chain risk   | ✅ On  | [Socket](https://socket.dev) flags malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.                                                                                                                                                                                                               |
+| Security alerts     | ✅ On  | [Dependabot](https://docs.github.com/en/code-security/dependabot) alerts when a dependency has a known vulnerability, using the GitHub Advisory Database.                                                                                                                                                                                |
+| Security updates    | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests that update vulnerable dependencies. These are handled manually.                                                                                                                                                                                   |
+| Version updates     | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests for new dependency versions. These are handled manually.                                                                                                                                                                                           |
 
 ### OpenSSF 🚧
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/dpuse/dpuse-tool-marked-markdown-parser/badge)](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-tool-marked-markdown-parser)
 
-This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev/viewer/?uri=github.com/dpuse/dpuse-tool-marked-markdown-parser) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+This project is working towards the [OpenSSF Best Practices](https://www.bestpractices.dev) Passing badge, a self-certification covering security policy, vulnerability reporting, build processes, code quality, and more. Currently the [OpenSSF Scorecard](https://scorecard.dev) provides an independent automated assessment of the project's security practices and is an ongoing area of improvement.
+
+### Reporting Vulnerabilities
+
+Please do not open public GitHub issues for security vulnerabilities. Use [GitHub private vulnerability reporting](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) instead. See [SECURITY.md](./SECURITY.md) for the full disclosure policy, contact details, and expected response times.
+
+<!-- QUALITY_SECURITY_END -->
+
+<!-- CONTRIBUTING_LICENSE_START -->
 
 ## Contributing
 
@@ -154,6 +183,6 @@ For security vulnerabilities, see [Reporting Vulnerabilities](#reporting-vulnera
 
 This project is licensed under the MIT License, permitting free use, modification, and distribution.
 
-[MIT](./LICENSE) © 2026-present Jonathan Terrell
+[MIT](./LICENSE) © 2026 Jonathan Terrell
 
-<!-- GOVERNANCE_END -->
+<!-- CONTRIBUTING_LICENSE_END -->

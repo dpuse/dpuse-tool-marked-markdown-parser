@@ -1,11 +1,23 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.23",
   "name": "@dpuse/dpuse-tool-marked-markdown-parser",
   "dependencies": {
     "marked": {
-      "version": "18.0.7",
-      "resolved": "https://registry.npmjs.org/marked/-/marked-18.0.7.tgz",
+      "version": "18.0.14",
+      "resolved": "https://registry.npmjs.org/marked/-/marked-18.0.14.tgz",
       "overridden": false
+    },
+    "turndown": {
+      "version": "7.2.4",
+      "resolved": "https://registry.npmjs.org/turndown/-/turndown-7.2.4.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@mixmark-io/domino": {
+          "version": "2.2.0",
+          "resolved": "https://registry.npmjs.org/@mixmark-io/domino/-/domino-2.2.0.tgz",
+          "overridden": false
+        }
+      }
     }
   }
 }
