@@ -27,6 +27,8 @@ In addition, DPUse provides [Tools](https://www.dpuse.app) used by the applicati
 
 ...
 
+Consider TanStack Markdown library for replacing Marked at some future date.
+
 <!-- OPENING_END -->
 
 A library that wraps the Marked markdown parser, giving DPUse a single, cloud-managed markdown renderer shared by dpuse-app and any presenter that needs one.
