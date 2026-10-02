@@ -1,0 +1,7 @@
+{
+    "packages": [
+        "marked@18.0.14",
+        "turndown@7.2.4"
+    ],
+    "external": []
+}

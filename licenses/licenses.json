@@ -1,12 +1,4 @@
 {
-    "@mixmark-io/domino@2.2.0": {
-        "licenses": "BSD-2-Clause",
-        "repository": "https://github.com/mixmark-io/domino",
-        "publisher": "Felix Gnass",
-        "email": "fgnass@gmail.com",
-        "path": "node_modules/@mixmark-io/domino",
-        "licenseFile": "downloads/@mixmark-io/domino@2.2.0-LICENSE.txt"
-    },
     "marked@18.0.14": {
         "licenses": "MIT",
         "repository": "https://github.com/markedjs/marked",

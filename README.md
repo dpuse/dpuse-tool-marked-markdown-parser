@@ -1,14 +1,4 @@
-# Data Positioning Marked Tool
-
-Consider TanStack Markdown library for replacing Marked at some future date.
-
-A library that wraps the Marked markdown parser, giving DPUse a single, cloud-managed markdown renderer shared by dpuse-app and any presenter that needs one.
-
-## Features
-
-- 🚀 **Fast Markdown Parsing**: with Marked
-- ☁️ **Cloud-Managed**: automatically updates new instances and notifies running instances of available updates
-- 🧑‍💻 **Implemented in TypeScript**: fully coded in TypeScript
+# DPUse Marked Markdown Parser Tool
 
 <!-- OPENING_START -->
 
@@ -39,21 +29,13 @@ In addition, DPUse provides [Tools](https://www.dpuse.app) used by the applicati
 
 <!-- OPENING_END -->
 
-## Installation
+A library that wraps the Marked markdown parser, giving DPUse a single, cloud-managed markdown renderer shared by dpuse-app and any presenter that needs one.
 
-There's no need to install this library manually. Once released, it is uploaded to the Data Positioning Cloud and instantly available in all newly launched browser app instances. Running instances are notified of the update.
+## Features
 
-### For Developers
-
-If you wish to fork or create your own copy of the library:
-
-```bash
-git clone https://github.com/dpuse/dpuse-tool-marked-markdown-parser.git
-cd dpuse-tool-marked-markdown-parser
-npm install
-```
-
-## Dependency Licenses
+- 🚀 **Fast Markdown Parsing**: with Marked
+- ☁️ **Cloud-Managed**: automatically updates new instances and notifies running instances of available updates
+- 🧑‍💻 **Implemented in TypeScript**: fully coded in TypeScript
 
 <!-- USAGE_START -->
 
@@ -79,25 +61,33 @@ This repository is managed using the common set of actions provided by [@dpuse/d
 
 <!-- USAGE_END -->
 
+There's no need to install this library manually. Once released, it is uploaded to the Data Positioning Cloud and instantly available in all newly launched browser app instances. Running instances are notified of the update.
+
+If you wish to fork or create your own copy of the library:
+
+```bash
+git clone https://github.com/dpuse/dpuse-tool-marked-markdown-parser.git
+cd dpuse-tool-marked-markdown-parser
+npm install
+```
+
 <!-- DEPENDENCY_LICENSES_START -->
 
 ## Dependency Licenses
 
-License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use CC0-1.0, BSD-2-Clause, or MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
+License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists every package whose code, styles or assets are included in this project's build, as recorded by the build itself. Modules loaded at run time are not included; each documents its own. These dependencies have been checked and confirmed to use MIT, all of which allow commercial use. All are used unmodified, so any licence conditions that apply only to modified versions are not triggered. Developers cloning this repository should independently verify development dependencies.
 
-| Dependency                                                 | Version | License(s)   | Document                                                           |
-| :--------------------------------------------------------- | :-----: | :----------- | :----------------------------------------------------------------- |
-| [@mixmark-io/domino](https://github.com/mixmark-io/domino) |  2.2.0  | BSD-2-Clause | [LICENSE](licenses/downloads/@mixmark-io/domino@2.2.0-LICENSE.txt) |
-| [marked](https://github.com/markedjs/marked)               | 18.0.14 | MIT          | [LICENSE](licenses/downloads/marked@18.0.14-LICENSE.txt)           |
-| [turndown](https://github.com/mixmark-io/turndown)         |  7.2.4  | MIT          | [LICENSE](licenses/downloads/turndown@7.2.4-LICENSE.txt)           |
+| Dependency                                         | Version | License(s) | Document                                                 |
+| :------------------------------------------------- | :-----: | :--------- | :------------------------------------------------------- |
+| [marked](https://github.com/markedjs/marked)       | 18.0.14 | MIT        | [LICENSE](licenses/downloads/marked@18.0.14-LICENSE.txt) |
+| [turndown](https://github.com/mixmark-io/turndown) |  7.2.4  | MIT        | [LICENSE](licenses/downloads/turndown@7.2.4-LICENSE.txt) |
 
 ### Dependency Tree
 
-The dependency tree below lists every package in this project — direct and transitive — along with its installed version, release date, and update status. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
+The dependency tree below shows how each package in the table above is reached — direct and transitive — along with its installed version, release date, and update status. A package that does not ship itself, such as one whose parts are bundled separately, is left out and what ships beneath it is shown in its place. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
 - **[marked](https://github.com/markedjs/marked)** 18.0.14 — this month: 2026-09-22
 - **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — **5 months** ago: 2026-04-03
-    - **[@mixmark-io/domino](https://github.com/mixmark-io/domino)** 2.2.0 — **29 months** ago: 2024-04-06 ⚠️
 
 <!-- DEPENDENCY_LICENSES_END -->
 
@@ -109,13 +99,15 @@ This report is updated with each release, from the bundle the release builds, us
 
 _Note: Sonda's Vite reports currently exclude CSS files, since Vite does not generate source maps for CSS._
 
-| Chunk/Module/File                                             | Composition                  |
-| :------------------------------------------------------------ | :--------------------------- |
-| dist/dpuse-tool-marked-markdown-parser.es.js                  | 67.9 kB · gzip 18.5 kB       |
-| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js            | `███████████████░░░░░` 74.1% |
-| &nbsp;&nbsp;&nbsp;&nbsp;turndown → lib/turndown.browser.es.js | `████░░░░░░░░░░░░░░░░` 18.5% |
-| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)   | `█░░░░░░░░░░░░░░░░░░░` 7.2%  |
-| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                        | `░░░░░░░░░░░░░░░░░░░░` 0.2%  |
+| Chunk/Module/File                                             | Composition                                  |
+| :------------------------------------------------------------ | :------------------------------------------- |
+| **dist/dpuse-tool-marked-markdown-parser.es.js**              | 67.9 kB · gzip 18.5 kB · 100.0% of the build |
+| &nbsp;&nbsp;&nbsp;&nbsp;marked → lib/marked.esm.js            | `███████████████░░░░░` 74.1% · 50.3 kB       |
+| &nbsp;&nbsp;&nbsp;&nbsp;turndown → lib/turndown.browser.es.js | `████░░░░░░░░░░░░░░░░` 18.5% · 12.5 kB       |
+| &nbsp;&nbsp;&nbsp;&nbsp;src → index.ts                        | `░░░░░░░░░░░░░░░░░░░░` 0.2% · 167 B          |
+| &nbsp;&nbsp;&nbsp;&nbsp;(bundler output, whitespace & JSON)   | `█░░░░░░░░░░░░░░░░░░░` 7.2% · 4.9 kB         |
+
+Bars show each row's share of its output file.
 
 (bundler output, whitespace & JSON) = bytes Sonda can't trace to a source file: whitespace (indentation and line breaks), code the bundler generates (region comments, the combined import/export lines, its small runtime helper and wrappers), and imported JSON such as `config.json`, which the bundler doesn't map. The JSON and the generated code are real bytes that ship; the whitespace mostly disappears once compressed.
 
