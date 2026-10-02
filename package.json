@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-tool-marked-markdown-parser",
-    "version": "0.1.24",
+    "version": "0.1.25",
     "private": false,
     "description": "A library that wraps the Marked markdown parser and the Turndown HTML-to-markdown converter.",
     "license": "MIT",
@@ -65,7 +65,7 @@
         "turndown": "^7.2.4"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^0.3.816",
+        "@dpuse/dpuse-development": "^0.3.817",
         "@dpuse/eslint-config-dpuse": "^1.0.124",
         "@types/node": "^26.6.4",
         "@types/turndown": "^5.0.6",
