@@ -7,13 +7,13 @@
 [![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-tool-marked-markdown-parser?color=cb3837&label=npm)](https://www.npmjs.com/package/@dpuse/dpuse-tool-marked-markdown-parser)
 [![CI](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml)
 
-[DPUse](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/issues)
-
 A library that wraps the Marked markdown parser and the Turndown HTML-to-markdown converter.
+
+[Report a Vulnerability](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/issues)
 
 ## About DPUse
 
-DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
+[DPUse](https://www.dpuse.app) (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
 
 **Sourcing** uses a library of [Connectors](https://www.dpuse.app/connectors) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources.
 
@@ -89,7 +89,7 @@ License data is updated each time `npm run document` is run, using [license-chec
 The dependency tree below shows how each package in the table above is reached — direct and transitive — along with its installed version, release date, and update status. A package that does not ship itself, such as one whose parts are bundled separately, is left out and what ships beneath it is shown in its place. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
 - **[marked](https://github.com/markedjs/marked)** 18.0.14 — this month: 2026-09-22
-- **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — **5 months** ago: 2026-04-03
+- **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — **6 months** ago: 2026-04-03
 
 <!-- DEPENDENCY_LICENSES_END -->
 
