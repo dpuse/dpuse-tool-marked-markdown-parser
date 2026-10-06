@@ -1,6 +1,6 @@
 {
     "name": "@dpuse/dpuse-tool-marked-markdown-parser",
-    "version": "1.0.3",
+    "version": "1.0.104",
     "private": false,
     "description": "A library that wraps the Marked markdown parser and the Turndown HTML-to-markdown converter.",
     "license": "MIT",
@@ -19,8 +19,8 @@
     "types": "./dist/types/src/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/dpuse-tool-marked-markdown-parser.es.js",
-            "types": "./dist/types/src/index.d.ts"
+            "types": "./dist/types/src/index.d.ts",
+            "import": "./dist/dpuse-tool-marked-markdown-parser.es.js"
         }
     },
     "files": [
@@ -65,7 +65,7 @@
         "turndown": "^7.2.4"
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^1.0.3",
+        "@dpuse/dpuse-development": "^1.0.113",
         "@dpuse/eslint-config-dpuse": "^1.0.131",
         "@types/node": "^26.6.4",
         "@types/turndown": "^5.0.6",
