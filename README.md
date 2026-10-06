@@ -3,7 +3,7 @@
 <!-- OPENING_START -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-tool-marked-markdown-parser?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/releases/latest)
+[![DPUse version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.dpuse.app%2Fconfigs%2Fdpuse-tool-marked-markdown-parser&query=%24.data.version&prefix=v&label=DPUse&color=f6821f)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/releases/latest)
 [![npm version](https://img.shields.io/npm/v/@dpuse/dpuse-tool-marked-markdown-parser?color=cb3837&label=npm)](https://www.npmjs.com/package/@dpuse/dpuse-tool-marked-markdown-parser)
 [![CI](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-tool-marked-markdown-parser/actions/workflows/ci.yml)
 
@@ -88,8 +88,8 @@ License data is updated each time `npm run document` is run, using [license-chec
 
 The dependency tree below shows how each package in the table above is reached — direct and transitive — along with its installed version, release date, and update status. A package that does not ship itself, such as one whose parts are bundled separately, is left out and what ships beneath it is shown in its place. Packages flagged ❗ have a newer version available; ⚠️ indicates a package that hasn't been updated in the last 6 months or longer. Neither flag necessarily indicates a problem: we let new releases stabilise before upgrading, and some packages are mature and stable (have limited or no dependencies), so they require no active development.
 
-- **[marked](https://github.com/markedjs/marked)** 18.0.14 — this month: 2026-09-22
-- **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — **6 months** ago: 2026-04-03
+- **[marked](https://github.com/markedjs/marked)** 18.0.14 — this month: 2026-09-22 → latest: 18.1.0 — this month: 2026-10-05 ❗
+- **[turndown](https://github.com/mixmark-io/turndown)** 7.2.4 — 6 mths ago: 2026-04-03
 
 <!-- DEPENDENCY_LICENSES_END -->
 
