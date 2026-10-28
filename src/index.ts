@@ -7,10 +7,10 @@ import TurndownService from 'turndown';
 export class Tool {
     // ── State ────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-    #turndownService = new TurndownService();
+    private turndownService = new TurndownService();
 
     constructor() {
-        this.#turndownService.keep(['u']); // Preserve <u> (underline); not part of standard Markdown, so Turndown drops it by default.
+        this.turndownService.keep(['u']); // Preserve <u> (underline); not part of standard Markdown, so Turndown drops it by default.
     }
 
     // ── Actions ──────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -24,6 +24,6 @@ export class Tool {
 
     // Convert HTML (e.g. a rich text editor's DOM output) back to markdown.
     toMarkdown(html: string | HTMLElement): string {
-        return this.#turndownService.turndown(html);
+        return this.turndownService.turndown(html);
     }
 }
